@@ -1,0 +1,27 @@
+.miniBoton{
+  background: transparent;
+  color: black;
+  font-weight: bold;
+  font-size: 30px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.3);
+  transition: all ease 0.1s;
+}
+
+.miniBoton:hover{
+  cursor: pointer;
+  box-shadow: 0 0px 2px rgba(255, 255, 255, 0.3);
+  scale: 1.1;
+  background: linear-gradient(45deg, hsla(142, 50%, 70%, 0.135),hsla(112, 50%, 75%, 0.284));
+}
+
+.miniBoton:active{
+  scale: 1.05;
+}
+
+@media screen and (width < 1200px) {
+  .miniBoton{
+    font-size: 25px;
+  }
+}

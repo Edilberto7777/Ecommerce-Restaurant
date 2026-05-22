@@ -1,0 +1,44 @@
+.boton{
+  width: auto;
+  height: 40px;
+  background: linear-gradient(45deg, hsl(340, 50%, 70%),hsl(360, 50%, 80%));
+  color: black;
+  font-weight: bold;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0px 2px rgba(255, 255, 255, 0.3);
+  transition: all ease 0.2s;
+  padding: 0 7px;
+  display: flex;
+  align-items: center;
+}
+
+.boton::after {
+  content: "";
+  display: inline-block;
+  width: 23px;
+  height: 23px;
+  background-image: var(--icon-url);
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-left: 5px;
+}
+
+.boton:hover{
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
+  scale: 1.03;
+  background: linear-gradient(45deg, hsl(340, 50%, 70%),hsl(360, 50%, 75%));
+}
+
+.boton:active{
+  scale: 1.05;
+}
+
+@media screen and (width < 1200px) {
+  .boton{
+    height: 35px;
+    font-size: 18px;
+  }
+}

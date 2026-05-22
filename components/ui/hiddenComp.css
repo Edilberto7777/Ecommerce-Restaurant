@@ -1,0 +1,75 @@
+.aside_Subproductos-oculto{
+  position: relative;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  display: none;
+}
+
+.aside_Subproductos-oculto.activo {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  border-radius: 10px;
+  z-index: 1000;
+}
+
+.subContenedorListasSubproductos{
+  padding: 10px;
+  height: auto;
+  min-width: 300px;
+  border-radius: 5px;
+  outline: 1px solid hsl(340, 50%, 70%);
+  background: rgba(184, 229, 239, 0.15);
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 5px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 150px;
+  left: -200px;
+  box-shadow: 0 3px 6px hsl(340, 50%, 70%);
+  transition: all ease 0.2s;
+}
+
+.subContenedorListasSubproductos:hover{
+  scale: 1.1;
+}
+
+.subContenedorListasSubproductos div{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.subContenedorListasSubproductos div h3{
+  margin: 0;
+  font-family: "Fascinate Inline";
+  color: hsl(340, 50%, 70%);
+}
+
+.subContenedorListasSubproductos .listaSubproductos{
+  list-style-type: '-';
+  margin: 0;
+  padding: 5px;
+  padding-left: 20px;
+  line-height: 30px;
+}
+
+.subContenedorListasSubproductos .listaSubproductos li{
+  color: white;
+  font-weight: 900;
+  display: flex;
+  justify-content: space-between;
+}
+
+.subContenedorListasSubproductos .listaSubproductos li p{
+  margin: 0;
+  display: inline-block;
+}
+
+.subContenedorListasSubproductos hr{
+  width: 100%;
+  color: hsl(340, 50%, 70%);
+}

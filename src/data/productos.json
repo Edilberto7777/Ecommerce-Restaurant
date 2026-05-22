@@ -1,0 +1,284 @@
+{
+  "bebidas": {
+    "común": {
+      "jugosNaturales": {
+        "nombreProducto": "Jugo Naturales",
+        "tipo": ["Frutabomba", "Tamarindo", "Platano", "Piña", "Guayaba", "Melón", "Mango", "Mamey"],
+        "onza": [],
+        "url": "../../src/assets/bebida.jpg",
+        "precioProducto": [100.0, 250.0]
+      },
+      "batidos": {
+        "nombreProducto": "Batidos de helados",
+        "tipo": [],
+        "onza": [7, 10],
+        "url": "../../src/assets/bebida.jpg",
+        "precioProducto": [390.0, 550.0]
+      }
+    },
+    "cocteles": {
+      "piñaColada": {
+        "nombreProducto": "Piña Colada",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/bebida.jpg",
+        "precioProducto": [600.0]
+      },
+      "cubaLibre": {
+        "nombreProducto": "Cuba Libre",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/bebida.jpg",
+        "precioProducto": [600.0]
+      }
+    },
+    "cafes": {
+      "expresso": {
+        "nombreProducto": "Expresso",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/bebida.jpg",
+        "precioProducto": [150.0]
+      },
+      "expressoDoble": {
+        "nombreProducto": "Expresso Doble",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/bebida.jpg",
+        "precioProducto": [250.0]
+      }
+    },
+    "cervezas": {
+      "nacional": {
+        "nombreProducto": "Nacional",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/bebida.jpg",
+        "precioProducto": [300.0]
+      },
+      "importada": {
+        "nombreProducto": "Importadas",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/bebida.jpg",
+        "precioProducto": [290.0]
+      }
+    }
+  },
+  "postres": {
+    "postres": {
+      "vasoDeFresa": {
+        "nombreProducto": "Vaso de fresas",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/postre.jpg",
+        "precioProducto": [990.0]
+      },
+      "vasoDeChocolate": {
+        "nombreProducto": "Vaso de Chocolate",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/postre.jpg",
+        "precioProducto": [450.0]
+      },
+      "pudin": {
+        "nombreProducto": "Pudin(2)",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/postre.jpg",
+        "precioProducto": [450.0]
+      },
+      "pudinNata": {
+        "nombreProducto": "Pudin(3)",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/postre.jpg",
+        "precioProducto": [520.0]
+      },
+      "algodonDeAzucar": {
+        "nombreProducto": "Algodón de Azúcar",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/postre.jpg",
+        "precioProducto": [100.0]
+      },
+      "algodonDeAzucarSaborizado": {
+        "nombreProducto": "Algodón de Azúcar Saborizado",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/postre.jpg",
+        "precioProducto": [120.0]
+      },
+      "rositas": {
+        "nombreProducto": "Rositas de Maíz",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/postre.jpg",
+        "precioProducto": [100.0]
+      }
+    },
+    "helados": {
+      "barquilloDeHelado": {
+        "nombreProducto": "Barquillo de Helado",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/postre.jpg",
+        "precioProducto": [120.0]
+      },
+      "copaDeTresCopas": {
+        "nombreProducto": "Copa de tres copas",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/postre.jpg",
+        "precioProducto": [600.0]
+      }
+    }
+  },
+  "comidas": {
+    "comidas": {
+      "chicharrones": {
+        "nombreProducto": "Chicharrones",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/comidas.jpg",
+        "precioProducto": [690.0]
+      },
+      "croquetasCaseras": {
+        "nombreProducto": "Croquetas caseras",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/comidas.jpg",
+        "precioProducto": [550.0]
+      },
+      "churros": {
+        "nombreProducto": "Churros Españoles",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/comidas.jpg",
+        "precioProducto": [250.0]
+      },
+      "churrosConLeche": {
+        "nombreProducto": "Churros Españoles(con leche condensada)",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/comidas.jpg",
+        "precioProducto": [350.0]
+      },
+      "churrosConChocolate": {
+        "nombreProducto": "Churros Españoles(con vaso de chocolate)",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/comidas.jpg",
+        "precioProducto": [450.0]
+      },
+      "tortasFritas": {
+        "nombreProducto": "Tortas Fritas Españolas",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/comidas.jpg",
+        "precioProducto": [180.0]
+      },
+      "tortasFritasChocolate": {
+        "nombreProducto": "Tortas Fritas Españolas(con vaso de chocolate)",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/comidas.jpg",
+        "precioProducto": [350.0]
+      }
+    },
+    "hamburguesas": {
+      "hamburguesaQueso": {
+        "nombreProducto": "Hamburguesa(con queso)",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/comidas.jpg",
+        "precioProducto": [850.0]
+      },
+      "dobleHamburguesaQueso": {
+        "nombreProducto": "Doble hamburguesa(con queso)",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/comidas.jpg",
+        "precioProducto": [1400.0]
+      },
+      "hamburguesaEspecial": {
+        "nombreProducto": "Hamburguesa(especial)",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/comidas.jpg",
+        "precioProducto": [1200.0]
+      },
+      "dobleHamburguesaEspecial": {
+        "nombreProducto": "Doble hamburguesa(especial)",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/comidas.jpg",
+        "precioProducto": [1800.0]
+      }
+    },
+    "bocadillos": {
+      "bocadilloCarne": {
+        "nombreProducto": "Bocadillo(de carne)",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/comidas.jpg",
+        "precioProducto": [300.0]
+      },
+      "bocadilloQueso": {
+        "nombreProducto": "Bocadillo(de queso manchego)",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/comidas.jpg",
+        "precioProducto": [400.0]
+      },
+      "bocadilloChorizo": {
+        "nombreProducto": "Bocadillo(de chorizo)",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/comidas.jpg",
+        "precioProducto": [500.0]
+      },
+      "bocadilloChorizoEspañol": {
+        "nombreProducto": "Bocadillo(de chorizo español)",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/comidas.jpg",
+        "precioProducto": [600.0]
+      }
+    },
+    "pizzas": {
+      "pizzaQueso": {
+        "nombreProducto": "Pizza(con queso criollo)",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/comidas.jpg",
+        "precioProducto": [590.00]
+      },
+      "pizzaQuesoG": {
+        "nombreProducto": "Pizza(con queso gouda)",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/comidas.jpg",
+        "precioProducto": [890.00]
+      },
+      "pizzaFamiliarQueso": {
+        "nombreProducto": "Pizza Familiar(con queso criollo)",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/comidas.jpg",
+        "precioProducto": [1770.00]
+      },
+      "pizzaFamiliarQuesoG": {
+        "nombreProducto": "Pizza Familiar(con queso gouda)",
+        "tipo": [],
+        "onza": [],
+        "url": "../../src/assets/comidas.jpg",
+        "precioProducto": [2990.00]
+      }
+    }
+  }
+}
+
+
+
+  

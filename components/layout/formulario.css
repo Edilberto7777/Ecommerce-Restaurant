@@ -1,0 +1,133 @@
+.paginaFormulario {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  min-height: 100vh;
+  background: #0d0d0d;
+}
+
+.formulario {
+  width: 40%;
+  min-height: 250px;
+  max-height: 700px;
+  border-radius: 20px;
+  background: #0d0d0d;
+  box-shadow: 0 0 5px hsl(340, 50%, 70%);;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.formulario:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 10px hsl(340, 50%, 70%);
+}
+
+.contenedor_Titulo-Form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.contenedor_Titulo-Form h2 {
+  font-family: "Fascinate Inline", sans-serif;
+  font-size: 52px;
+  font-weight: 700;
+  color: hsl(340, 50%, 70%);
+  margin: 0;
+}
+
+.boton_Cambio-Registro-Inicio {
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  background-color: #111;
+  background-image: url('../../src/assets/logoInicioS.png');
+  background-position: center;
+  background-size: cover;
+  cursor: pointer;
+  box-shadow: 0 0 10px hsl(340, 90%, 60%);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.boton_Cambio-Registro-Inicio:hover {
+  transform: rotate(360deg);
+  box-shadow: 0 0 20px hsl(340, 90%, 60%), 0 0 40px hsl(340, 90%, 60%);
+}
+
+.contenedorContenido {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-top:   20px;
+  justify-content: space-around;
+}
+
+.super_Contenedor-Label {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contenedorContenido label {
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.contenedorContenido label p {
+  margin: 0 0 5px 0;
+  font-size: 21px;
+  font-style: italic;
+  color: hsl(340, 50%, 70%);;
+}
+
+.contenedorContenido label input {
+  min-width: 90%;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 19px;
+  background: #111;
+  color: #fff;
+  box-shadow: 0 0 10px hsl(340, 50%, 70%) inset;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.contenedorContenido label input:focus {
+  outline: none;
+  box-shadow:  0 0 20px hsl(340, 90%, 60%) inset;
+  transform: scale(1.02);
+}
+
+.boton_Submit {
+  align-self: center;
+  width: 160px;
+  height: 50px;
+  color: black;
+  font-weight: 600;
+  font-size: 18px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(135deg, hsl(280, 100%, 50%),hsl(300, 100%, 50%), hsl(340, 90%, 60%));
+  box-shadow: 0 0 5px #ff00ff;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.boton_Submit:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 5px hsl(280, 100%, 50%), 0 0 10px hsl(340, 90%, 60%);
+}
+
+.boton_Submit:active {
+  transform: scale(0.95);
+}
