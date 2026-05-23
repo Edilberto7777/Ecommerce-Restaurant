@@ -58,7 +58,10 @@
   font-style: italic;
   font-weight: bold;
   color: black;
-  background: linear-gradient(45deg, hsl(340, 50%, 70%), hsl(300, 50%, 70%), hsl(260, 50%, 70%));
+  background: linear-gradient(45deg, 
+  hsl(340, 50%, 70%), 
+  hsl(300, 50%, 70%), 
+  hsl(260, 50%, 70%));
   padding: 5px;
   border-radius: 0px 5px 5px 0px;
   height: 25px;
@@ -200,11 +203,6 @@
   scroll-padding-right: 20px;
 }
 
-#selector_categorias option{
-  padding: 0;
-  color: blue;
-}
-
 .contenedor_Aside-Subproductos{
   width: 70%;
   min-height: 150px;
@@ -294,15 +292,29 @@
 }
 
 .contenedor_Principal-3 div{
-  width: 80%;
-  outline: 1px solid white;
+  width: 70%;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.091);
+  box-shadow: 0 3px 5px rgba(255, 255, 255, 0.3);
 }
+
+
+
+/* -------------FOOTER--------------- */
 
 .contenedor_Footer {
   width: 100%;
   margin-top: 80px;
   box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.1);
   display: flex;
+  justify-content: center;
+}
+
+.sub_contenedor-Footer{
+  width: 50%;
+  display: flex;
+  width: 50%;
+  align-items: center;
   justify-content: center;
 }
 
@@ -321,14 +333,19 @@
   color: hsl(0, 0%, 95%);
 }
 
-.primer_contenedor-Footer,
-.contenedor_intermedio-Footer,
-.segundo_contenedor-Footer {
-  flex: 1 1 250px;
-  margin: 10px;
+.primer_contenedor-Footer{
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: end;
+  border-right: 1px solid white;
+  padding-right: 20px;
+}
+
+.contenedor_intermedio-Footer {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
 }
 
 .primer_contenedor-Footer h3 {
@@ -354,6 +371,14 @@
   margin: 0;
   font-size: 14px;
   color: hsl(0, 0%, 80%);
+}
+
+.segundo_contenedor-Footer{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
 }
 
 .segundo_contenedor-Footer p {
@@ -489,6 +514,11 @@
   .aside_Subproductos div h4{
     font-size: 18px;
   }
+
+  .contenedor_Footer footer{
+    flex-direction: column;
+    gap: 10px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -520,5 +550,9 @@
 
   .contenedor_botones{
     margin: 0;
+  }
+
+  .aside_Subproductos2 div{
+    margin-bottom: 20px;
   }
 }

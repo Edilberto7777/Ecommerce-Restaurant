@@ -189,19 +189,20 @@ export const Layout = () => {
       </div>
       <div className='contenedor_Footer'>
         <footer>
-          <div className='primer_contenedor-Footer'>
-            <h3>No dude en visitarnos</h3>
-            <p>Abierto las <b>24 horas</b></p>
-          </div>
-          <div className='contenedor_intermedio-Footer'>
-            <h4>&copy; 2026 Pan y Chocolate</h4>
-            <p>Todos los derechos reservados</p>
+          <div className='sub_contenedor-Footer'>
+            <div className='primer_contenedor-Footer'>
+              <h3>No dude en visitarnos</h3>
+              <p>Abierto las <b>24 horas</b></p>
+            </div>
+            <div className='contenedor_intermedio-Footer'>
+              <h4>&copy; 2026 Pan y Chocolate</h4>
+              <p>Todos los derechos reservados</p>
+            </div>
           </div>
           <address className='segundo_contenedor-Footer'>
-            <p>Calle: <b>_______</b></p>
+            <p>Calle Infanta e/ calle Neptuno y calle Concordia, <br />
+              Centro Habana, La Habana</p>
             <p>Contacto: <a href="tel:51473847">51473847</a></p>
-            <p>Correo: <a href="mailto:nombre@gmail.com">nombre@gmail.com</a></p>
-
           </address>
         </footer>
       </div>
