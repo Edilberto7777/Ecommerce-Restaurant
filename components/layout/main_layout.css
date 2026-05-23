@@ -374,7 +374,6 @@
 }
 
 .segundo_contenedor-Footer{
-  width: 50%;
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -394,6 +393,13 @@
 
 .segundo_contenedor-Footer a:hover {
   text-decoration: underline;
+}
+
+.contenedor_QR{
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 /* -------------TRANSICIONES-------------- */
@@ -516,6 +522,11 @@
   }
 
   .contenedor_Footer footer{
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .contenedor_QR{
     flex-direction: column;
     gap: 10px;
   }

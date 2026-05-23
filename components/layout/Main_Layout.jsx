@@ -199,11 +199,16 @@ export const Layout = () => {
               <p>Todos los derechos reservados</p>
             </div>
           </div>
-          <address className='segundo_contenedor-Footer'>
-            <p>Calle Infanta e/ calle Neptuno y calle Concordia, <br />
-              Centro Habana, La Habana</p>
-            <p>Contacto: <a href="tel:51473847">51473847</a></p>
-          </address>
+          <div className='contenedor_QR'>
+            <address className='segundo_contenedor-Footer'>
+              <p>Calle Infanta e/ calle Neptuno y calle Concordia, <br />
+                Centro Habana, La Habana</p>
+              <p>Contacto: <a href="tel:51473847">51473847</a></p>
+            </address>
+            <div>
+              <img src="../../src/assets/codigoQR.jpg" alt="codigo QR"  width={150}/>
+            </div>
+          </div>
         </footer>
       </div>
     </>
