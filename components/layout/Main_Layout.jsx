@@ -11,6 +11,7 @@ import { MiniButton } from '../ui/MiniButton';
 
 export const Layout = () => {
   const contenedor2Ref = useRef(null);
+  const contenedor3Ref = useRef(null);
   const [scrollY, setScrollY] = useState(0);
   const [scale, setScale] = useState(1);
   const [opacity, setOpacity] = useState(1);
@@ -27,9 +28,9 @@ export const Layout = () => {
     postres: productosData.postres,
   };
 
-  const handle2Ref = () => {
-    if (contenedor2Ref) {
-      contenedor2Ref.current.scrollIntoView({ behavior: 'smooth' });
+  const handleRef = (c) => {
+    if (c) {
+      c.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
   const categoriaSeleccionadaProductos = (event) => {
@@ -74,24 +75,19 @@ export const Layout = () => {
       <div className='contenedor_Principal'>
         <div className='hero'>
           <div className='hero_body'>
-            <div className='sub_hero-body'
-              style={{ 
-                transform: `translateX(-${scrollY}px) scale(${scale})`, 
-              }}>
+            <div className='sub_hero-body'>
               <span className='bienvenido'>Bienvenido al Restaurante:</span>
               <h1><i>Pan y Chocolate</i></h1>
-              <span style={{ opacity, transition: 'opacity 0.5s ease' }}>
+              <span>
                 <sup>un oasis</sup>
               </span>
-              <div className='contenedor_boton-avanzar' style={{ opacity, transition: 'opacity 0.5s ease' }}>
-                <button type="button" onClick={handle2Ref}>Avanzar</button>
+              <div className='contenedor_boton-avanzar'>
+                <button type="button" onClick={() => handleRef(contenedor2Ref)}>Avanzar</button>
               </div>
             </div>
         </div>
         <div className='hero_aside'>
-            <div className='agrupador_imagenes' style={{ 
-                transform: `translateX(${scrollY}px) scale(${scale})`, 
-              }}>
+            <div className='agrupador_imagenes'>
               <img className='primera_imagen' src="../../src/assets/oasis.png" alt="oasis" width={800} height={800} />
             </div>
         </div>
@@ -106,9 +102,10 @@ export const Layout = () => {
                 <div className='contenedor_botones-registro'>
                   <MiniButton contenido={'🔄'} width={50} onClick={gestionarCambio} />
                   <Button
+                    contenidoMovil={registrado ? 'I-S..' : 'Regis...'}
                     contenido={registrado ? 'Iniciar Sección' : 'Registrarse'}
                     btnUrl={'../../src/assets/logoInicioS.png'}
-                    onClick={() => navigate( registrado ? '/login': '/registro')}/>
+                    onClick={() => navigate( registrado  ? '/login': '/registro')}/>
                 </div>
                 <select name="selector" id="selector_categorias" value={categoriaActiva}
                   onChange={categoriaSeleccionadaProductos}>
@@ -123,7 +120,7 @@ export const Layout = () => {
             <hr />
           </section>
           <div className="contenedor_Productos">
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="sync">
               {productosPorCategoria[categoriaActiva][subCategoriaActiva] &&
                 Object.values(productosPorCategoria[categoriaActiva][subCategoriaActiva]).map((subProducto, index) => (
                   <motion.div
@@ -154,14 +151,26 @@ export const Layout = () => {
           <section className='contenedor_Aside-Subproductos'>
             <div className='aside_Subproductos'>
               <div>
-                <h4>Selecciona la subcategoria de su producto:</h4>
+                <h4>Selecciona la subcategoria:</h4>
                 <Button
+                  contenidoMovil={'Sel'}
                   contenido={'Seleccionar'}
                   btnUrl={'../../src/assets/botonDesplegable.png'}
                   onClick={() => setMostrarClase('activo')}
                 />
               </div>
             </div>      
+            <div  className='aside_Subproductos2'>
+              <div>
+                <h4>Ver el <span>Carrito</span></h4>
+                <Button
+                  onClick={() => handleRef(contenedor3Ref)}
+                  contenidoMovil={'Ver'}
+                  contenido={'Ver'}
+                  btnUrl={'../../src/assets/botonDesplegable.png'}
+                />
+              </div>
+            </div>
             {mostrarClase === 'activo' && (
               <div className="overlay">
                 <HiddenComp
@@ -172,6 +181,9 @@ export const Layout = () => {
             )}
           </section>
         </div>
+      </div>
+      <div className='contenedor_Principal-3' ref={contenedor3Ref}>
+        <div></div>
       </div>
     </>
   )

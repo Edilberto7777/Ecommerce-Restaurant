@@ -93,3 +93,22 @@
     font-size: 13px;
   }
 }
+
+@media screen and (height < 900px) {
+  .contenedor_cartaProducto{
+    width: 200px;
+    height: 310px;
+  }
+
+  .contenedor_imagen img{
+    height: 200px;
+  }
+
+  .contenedor_imagen p{
+    margin: 0;
+  }
+
+  .contenedor_cartaProducto hr{
+    margin: 0;
+  }
+}

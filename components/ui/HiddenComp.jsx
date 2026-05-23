@@ -11,7 +11,7 @@ export const HiddenComp = ({onclick, arreglo, setSubCategoriaActiva }) => {
       <div className='subContenedorListasSubproductos'>
         <div>
           <h3>Elige alguno:</h3>
-          <Button onClick={onclick} contenido={'Cerrar'} width={80} btnUrl={''} />
+          <Button contenidoMovil={'Cerrar'} onClick={onclick} contenido={'Cerrar'} width={80} />
         </div>
         <hr />
         <ul className='listaSubproductos'>

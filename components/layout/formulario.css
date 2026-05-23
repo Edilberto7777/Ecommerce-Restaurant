@@ -7,7 +7,7 @@
 }
 
 .formulario {
-  width: 40%;
+  width: 30%;
   min-height: 250px;
   max-height: 700px;
   border-radius: 20px;
@@ -130,4 +130,26 @@
 
 .boton_Submit:active {
   transform: scale(0.95);
+}
+
+@media screen and (width < 1440px) {
+  .formulario{
+    width: 50%;
+  }
+}
+
+@media screen and (width < 650px) {
+  .formulario{
+    width: 70%;
+  }
+
+  .contenedor_Titulo-Form h2{
+    font-size: 40px;
+  }
+}
+
+@media screen and (width < 840px) {
+  .boton_Cambio-Registro-Inicio{
+    display: none;
+  }
 }

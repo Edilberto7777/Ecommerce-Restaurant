@@ -27,6 +27,7 @@ export const CartaProducto = ({ url, nombreProducto, onza, precioProducto }) => 
       <div className="contenedor_botonComprar">
         <div className="contenedor_botonComprar_Icono">
           <Button 
+            contenidoMovil={'$$$'}
             contenido={'Comprar'} 
             btnUrl={'../../src/assets/botonCarrito.png'} 
             onClick={handleComprar}
@@ -34,7 +35,6 @@ export const CartaProducto = ({ url, nombreProducto, onza, precioProducto }) => 
           <span></span>
         </div>
         <div className="contenedorPrecio">
-          <p>{onza ? `Oz:${onza}` : ''}</p>
           <p>{`$${precioProducto}`}</p>
         </div>
       </div>

@@ -73,3 +73,9 @@
   width: 100%;
   color: hsl(340, 50%, 70%);
 }
+
+@media screen and (width < 460px) {
+  .subContenedorListasSubproductos{
+    left: -150px;
+  }
+}
