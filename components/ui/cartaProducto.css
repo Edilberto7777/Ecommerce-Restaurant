@@ -25,6 +25,7 @@
 
 .contenedor_botonComprar_Icono{
   display: flex;
+  gap: 10px;
 }
 
 .contenedor_imagen{
@@ -70,6 +71,22 @@
 
 .contenedorPrecio p{
   margin: 0;
+}
+
+.input_number{
+  width: 40px;
+  border: none;
+  outline: 1px solid hsl(340, 50%, 70%);
+  border-radius: 5px;
+  background: hsla(340, 50%, 70%, 0.435);
+  transition: all 0.2s ease;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.input_number:hover{
+  box-shadow: 0 2px 5px hsl(340, 50%, 70%);
+  scale: 1.02;
 }
 
 @media screen and (width < 725px){

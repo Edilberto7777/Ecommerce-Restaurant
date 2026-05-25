@@ -4,48 +4,48 @@
       "jugosNaturales": {
         "nombreProducto": "Jugo Naturales",
         "url": "../../src/assets/bebida.jpg",
-        "precioProducto": [100.0, 250.0]
+        "precioProducto": 100.0
       },
       "batidos": {
         "nombreProducto": "Batidos de helados",
         "url": "../../src/assets/bebida.jpg",
-        "precioProducto": [390.0, 550.0]
+        "precioProducto": 390.0
       }
     },
     "cocteles": {
       "piñaColada": {
         "nombreProducto": "Piña Colada",
         "url": "../../src/assets/bebida.jpg",
-        "precioProducto": [600.0]
+        "precioProducto": 600.0
       },
       "cubaLibre": {
         "nombreProducto": "Cuba Libre",
         "url": "../../src/assets/bebida.jpg",
-        "precioProducto": [600.0]
+        "precioProducto": 600.0
       }
     },
     "cafes": {
       "expresso": {
         "nombreProducto": "Expresso",
         "url": "../../src/assets/bebida.jpg",
-        "precioProducto": [150.0]
+        "precioProducto": 150.0
       },
       "expressoDoble": {
         "nombreProducto": "Expresso Doble",
         "url": "../../src/assets/bebida.jpg",
-        "precioProducto": [250.0]
+        "precioProducto": 250.0
       }
     },
     "cervezas": {
       "nacional": {
         "nombreProducto": "Nacional",
         "url": "../../src/assets/bebida.jpg",
-        "precioProducto": [300.0]
+        "precioProducto": 300.0
       },
       "importada": {
         "nombreProducto": "Importadas",
         "url": "../../src/assets/bebida.jpg",
-        "precioProducto": [290.0]
+        "precioProducto": 290.0
       }
     }
   },
@@ -54,49 +54,49 @@
       "vasoDeFresa": {
         "nombreProducto": "Vaso de fresas",
         "url": "../../src/assets/postre.jpg",
-        "precioProducto": [990.0]
+        "precioProducto": 990.0
       },
       "vasoDeChocolate": {
         "nombreProducto": "Vaso de Chocolate",
         "url": "../../src/assets/postre.jpg",
-        "precioProducto": [450.0]
+        "precioProducto": 450.0
       },
       "pudin": {
         "nombreProducto": "Pudin(2)",
         "url": "../../src/assets/postre.jpg",
-        "precioProducto": [450.0]
+        "precioProducto": 450.0
       },
       "pudinNata": {
         "nombreProducto": "Pudin(3)",
         "url": "../../src/assets/postre.jpg",
-        "precioProducto": [520.0]
+        "precioProducto": 520.0
       },
       "algodonDeAzucar": {
         "nombreProducto": "Algodón de Azúcar",
         "url": "../../src/assets/postre.jpg",
-        "precioProducto": [100.0]
+        "precioProducto": 100.0
       },
       "algodonDeAzucarSaborizado": {
         "nombreProducto": "Algodón de Azúcar Saborizado",
         "url": "../../src/assets/postre.jpg",
-        "precioProducto": [120.0]
+        "precioProducto": 120.0
       },
       "rositas": {
         "nombreProducto": "Rositas de Maíz",
         "url": "../../src/assets/postre.jpg",
-        "precioProducto": [100.0]
+        "precioProducto": 100.0
       }
     },
     "helados": {
       "barquilloDeHelado": {
         "nombreProducto": "Barquillo de Helado",
         "url": "../../src/assets/postre.jpg",
-        "precioProducto": [120.0]
+        "precioProducto": 120.0
       },
       "copaDeTresCopas": {
         "nombreProducto": "Copa de tres copas",
         "url": "../../src/assets/postre.jpg",
-        "precioProducto": [600.0]
+        "precioProducto": 600.0
       }
     }
   },
@@ -105,103 +105,103 @@
       "chicharrones": {
         "nombreProducto": "Chicharrones",
         "url": "../../src/assets/comidas.jpg",
-        "precioProducto": [690.0]
+        "precioProducto": 690.0
       },
       "croquetasCaseras": {
         "nombreProducto": "Croquetas caseras",
         "url": "../../src/assets/comidas.jpg",
-        "precioProducto": [550.0]
+        "precioProducto": 550.0
       },
       "churros": {
         "nombreProducto": "Churros Españoles",
         "url": "../../src/assets/comidas.jpg",
-        "precioProducto": [250.0]
+        "precioProducto": 250.0
       },
       "churrosConLeche": {
         "nombreProducto": "Churros Españoles(con leche condensada)",
         "url": "../../src/assets/comidas.jpg",
-        "precioProducto": [350.0]
+        "precioProducto": 350.0
       },
       "churrosConChocolate": {
         "nombreProducto": "Churros Españoles(con vaso de chocolate)",
         "url": "../../src/assets/comidas.jpg",
-        "precioProducto": [450.0]
+        "precioProducto": 450.0
       },
       "tortasFritas": {
         "nombreProducto": "Tortas Fritas Españolas",
         "url": "../../src/assets/comidas.jpg",
-        "precioProducto": [180.0]
+        "precioProducto": 180.0
       },
       "tortasFritasChocolate": {
         "nombreProducto": "Tortas Fritas Españolas(con vaso de chocolate)",
         "url": "../../src/assets/comidas.jpg",
-        "precioProducto": [350.0]
+        "precioProducto": 350.0
       }
     },
     "hamburguesas": {
       "hamburguesaQueso": {
         "nombreProducto": "Hamburguesa(con queso)",
         "url": "../../src/assets/comidas.jpg",
-        "precioProducto": [850.0]
+        "precioProducto": 850.0
       },
       "dobleHamburguesaQueso": {
         "nombreProducto": "Doble hamburguesa(con queso)",
         "url": "../../src/assets/comidas.jpg",
-        "precioProducto": [1400.0]
+        "precioProducto": 1400.0
       },
       "hamburguesaEspecial": {
         "nombreProducto": "Hamburguesa(especial)",
         "url": "../../src/assets/comidas.jpg",
-        "precioProducto": [1200.0]
+        "precioProducto": 1200.0
       },
       "dobleHamburguesaEspecial": {
         "nombreProducto": "Doble hamburguesa(especial)",
         "url": "../../src/assets/comidas.jpg",
-        "precioProducto": [1800.0]
+        "precioProducto": 1800.0
       }
     },
     "bocadillos": {
       "bocadilloCarne": {
         "nombreProducto": "Bocadillo(de carne)",
         "url": "../../src/assets/comidas.jpg",
-        "precioProducto": [300.0]
+        "precioProducto": 300.0
       },
       "bocadilloQueso": {
         "nombreProducto": "Bocadillo(de queso manchego)",
         "url": "../../src/assets/comidas.jpg",
-        "precioProducto": [400.0]
+        "precioProducto": 400.0
       },
       "bocadilloChorizo": {
         "nombreProducto": "Bocadillo(de chorizo)",
         "url": "../../src/assets/comidas.jpg",
-        "precioProducto": [500.0]
+        "precioProducto": 500.0
       },
       "bocadilloChorizoEspañol": {
         "nombreProducto": "Bocadillo(de chorizo español)",
         "url": "../../src/assets/comidas.jpg",
-        "precioProducto": [600.0]
+        "precioProducto": 600.0
       }
     },
     "pizzas": {
       "pizzaQueso": {
         "nombreProducto": "Pizza(con queso criollo)",
         "url": "../../src/assets/comidas.jpg",
-        "precioProducto": [590.00]
+        "precioProducto": 590.0
       },
       "pizzaQuesoG": {
         "nombreProducto": "Pizza(con queso gouda)",
         "url": "../../src/assets/comidas.jpg",
-        "precioProducto": [890.00]
+        "precioProducto": 890.00
       },
       "pizzaFamiliarQueso": {
         "nombreProducto": "Pizza Familiar(con queso criollo)",
         "url": "../../src/assets/comidas.jpg",
-        "precioProducto": [1770.00]
+        "precioProducto": 1770.0
       },
       "pizzaFamiliarQuesoG": {
         "nombreProducto": "Pizza Familiar(con queso gouda)",
         "url": "../../src/assets/comidas.jpg",
-        "precioProducto": [2990.00]
+        "precioProducto": 2990.0
       }
     }
   }

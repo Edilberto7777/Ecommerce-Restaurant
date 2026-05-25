@@ -85,7 +85,6 @@ export const Formulario = ({ cantContenido }) => {
             ) : (
               <h2>Registrarse</h2>
             )}
-            <button type="button" className="boton_Cambio-Registro-Inicio"></button>
           </div>
           <hr />
         </div>
