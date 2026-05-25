@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { AnimatePresence } from 'framer-motion';
 import { MiniButton } from '../ui/MiniButton';
+import { button, li } from 'framer-motion/client';
 
 export const Layout = () => {
   const contenedor2Ref = useRef(null);
@@ -21,6 +22,7 @@ export const Layout = () => {
   const [subCategoriaActiva, setSubCategoriaActiva] = useState(
     Object.keys(productosData.bebidas)[0]
   );
+  const [carrito, setCarrito] = useState([]);
 
   const productosPorCategoria = {
     bebidas: productosData.bebidas,
@@ -70,6 +72,10 @@ export const Layout = () => {
     setRegistrado(!registrado);
   }
 
+  const gestionarEliminacion = (nombre) => {
+    setCarrito(prev => prev.filter(p => p.nombreProducto !== nombre));
+  }
+
   return (
     <>
       <div className='contenedor_Principal'>
@@ -100,7 +106,15 @@ export const Layout = () => {
               <h2>Productos en venta:</h2>
               <div className='contenedor_botones'>
                 <div className='contenedor_botones-registro'>
-                  <MiniButton contenido={'🔄'} width={50} onClick={gestionarCambio} />
+                  <MiniButton contenido={<svg xmlns="http://www.w3.org/2000/svg" 
+                    width="20" height="20" 
+                    viewBox="0 0 24 24" 
+                    fill="none" stroke="white" 
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 4 23 10 17 10" />
+                  <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+                </svg>
+                } width={50} onClick={gestionarCambio} />
                   <Button
                     contenidoMovil={registrado ? 'I-S..' : 'Regis...'}
                     contenido={registrado ? 'Iniciar Sección' : 'Registrarse'}
@@ -131,18 +145,9 @@ export const Layout = () => {
                     transition={{ duration: 0.5 }}
                   >
                     <CartaProducto
-                      url={subProducto.url}
-                      nombreProducto={subProducto.nombreProducto}
-                      onza={
-                        Array.isArray(subProducto.onza) && subProducto.onza.length > 0
-                          ? subProducto.onza.join('-')
-                          : null
-                      }
-                      precioProducto={
-                        Array.isArray(subProducto.precioProducto) && subProducto.precioProducto.length > 1
-                          ? subProducto.precioProducto.join('-')
-                          : subProducto.precioProducto[0]
-                      }
+                      subProducto={subProducto}
+                      carrito={carrito}
+                      setCarrito={setCarrito}
                     />
                   </motion.div>
                 ))}
@@ -184,7 +189,32 @@ export const Layout = () => {
       </div>
       <div className='contenedor_Principal-3' ref={contenedor3Ref}>
         <div>
-
+          <h3>Productos agregados:</h3>
+          <hr />
+          <div className='contenedor_lista-Productos'>
+            <ul className='lista_productos-Agg'>
+              {carrito.map((producto, index) => (
+                <li key={index}>{`${producto.nombreProducto} - ${producto.cantidad} `}<MiniButton
+                  color={'hsla(0, 0%, 88%, 0.78)'}
+                  contenido={
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg" 
+                      width="24" height="24" 
+                      viewBox="0 0 24 24" 
+                      fill="none" stroke="currentColor" 
+                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6l-1 14H6L5 6"></path>
+                    <path d="M10 11v6"></path>
+                    <path d="M14 11v6"></path>
+                    <path d="M9 6V4h6v2"></path>
+                  </svg>
+                  }
+                  width={40}
+                  onClick={() => gestionarEliminacion(producto.nombreProducto)}/></li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
       <div className='contenedor_Footer'>

@@ -56,8 +56,9 @@
 .contenedor_Principal .hero .hero_body .bienvenido{
   font-size: 20px;
   font-style: italic;
+  font-family: "Lato";
   font-weight: bold;
-  color: black;
+  color: hsl(250, 40%, 15%);
   background: linear-gradient(45deg, 
   hsl(340, 50%, 70%), 
   hsl(300, 50%, 70%), 
@@ -73,6 +74,7 @@
 .contenedor_Principal .hero sup{
   border-bottom: 2px solid hsl(340, 50%, 70%);
   line-height: 1.5;
+  font-family: "Lato";
 }
 
 .contenedor_Principal.aparecimiento_suave {
@@ -102,6 +104,7 @@
   width: 100px;
   height: 40px;
   font-size: 20px;
+  font-family: "Lato";
   font-weight: bold;
   color: hsl(340, 50%, 70%);
   transition: all ease 0.2s;
@@ -174,7 +177,7 @@
   width: 130px;
   height: 40px;
   background: linear-gradient(45deg, hsl(240, 50%, 70%),hsl(200, 50%, 70%));
-  color: black;
+  color: hsl(250, 40%, 15%);
   font-weight: bold;
   font-size: 18px;
   border: none;
@@ -221,11 +224,13 @@
   padding-bottom: 10px;
   width: 100%;
   position: relative;
+  font-family: "Lato";
 }
 
 .aside_Subproductos2{
   width: 100%;
   position: relative;
+  font-family: "Lato";
 }
 
 .aside_Subproductos div{
@@ -291,14 +296,45 @@
   justify-content: center;
 }
 
-.contenedor_Principal-3 div{
+.contenedor_Principal-3 > div{
   width: 70%;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.091);
+  background: hsla(0, 0%, 80%);
   box-shadow: 0 3px 5px rgba(255, 255, 255, 0.3);
 }
 
+.contenedor_Principal-3 div h3{
+  margin: 0;
+  padding: 15px;
+  font-family: "Fascinate Inline", system-ui;
+  color: hsl(250, 40%, 15%);
+  font-size: 28px;
+}
 
+.contenedor_Principal-3 div hr{
+  margin: 0;
+  color: hsl(250, 40%, 15%);
+}
+
+.contenedor_lista-Productos{
+  height: auto;
+  max-height: 430px;
+  width: 50%;
+  overflow-y: scroll;
+}
+
+.lista_productos-Agg{
+  color: hsl(250, 40%, 15%);
+  margin: 0;
+  padding: 10px 5px 5px 30px;
+}
+
+.lista_productos-Agg li{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-family: "Lato";
+}
 
 /* -------------FOOTER--------------- */
 
@@ -308,6 +344,7 @@
   box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: center;
+  font-family: "Lato";
 }
 
 .sub_contenedor-Footer{
@@ -565,5 +602,15 @@
 
   .aside_Subproductos2 div{
     margin-bottom: 20px;
+  }
+}
+
+@media screen and (width < 420px) {
+  .lista_productos-Agg{
+    padding: 5px 5px 5px 10px;
+  }
+
+  .lista_productos-Agg li{
+    font-size: 15px;
   }
 }

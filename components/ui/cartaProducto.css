@@ -8,11 +8,12 @@
   box-sizing: border-box;
   scroll-snap-align: start;
   transition: all ease 0.2s;
-  box-shadow: 0 3px 5px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 1px 3px rgba(255, 255, 255, 0.2);
+  font-family: "Lato";
 }
 
 .contenedor_cartaProducto:hover{
-  box-shadow: 0 1px 3px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 3px 5px rgba(255, 255, 255, 0.2);
 }
 
 .contenedor_botonComprar{
