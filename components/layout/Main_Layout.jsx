@@ -1,50 +1,65 @@
+// Importa estilos y dependencias necesarias
 import './main_layout.css'
 import { useState, useEffect, useRef } from 'react';
-import { Button } from '../ui/Buttons';
-import { CartaProducto } from '../ui/CartaProducto';
-import productosData from '../../src/data/productos.json';
-import { HiddenComp } from '../ui/HiddenComp';  
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { AnimatePresence } from 'framer-motion';
-import { MiniButton } from '../ui/MiniButton';
-import { Estadisticas } from '../ui/Estadisticas';
+import { Button } from '../ui/Buttons'; // Botón reutilizable
+import { CartaProducto } from '../ui/CartaProducto'; // Tarjeta de producto
+import productosData from '../../src/data/productos.json'; // Datos de productos
+import { HiddenComp } from '../ui/HiddenComp';  // Panel oculto para elegir subcategorías
+import { useNavigate } from 'react-router-dom'; // Para cambiar de página
+import { motion } from 'framer-motion'; // Animaciones
+import { AnimatePresence } from 'framer-motion'; // Animaciones de entrada/salida
+import { MiniButton } from '../ui/MiniButton'; // Botón pequeño reutilizable
+import { Estadisticas } from '../ui/Estadisticas'; // Resumen del carrito
+import { FadeOnScroll } from './FadeOnScroll';
 
-export const Layout = () => {
+export const Layout = ({usuario, telefono, municipioActivo, contador, precioMensajeria}) => {
+
+  // Referencias a contenedores para hacer scroll automático
   const contenedor2Ref = useRef(null);
   const contenedor3Ref = useRef(null);
-  const [scrollY, setScrollY] = useState(0);
-  const [scale, setScale] = useState(1);
-  const [opacity, setOpacity] = useState(1);
-  const [mostrarClase, setMostrarClase] = useState('');
-  const navigate = useNavigate();
-  const [categoriaActiva, setCategoriaActiva] = useState('bebidas');
-  const [subCategoriaActiva, setSubCategoriaActiva] = useState(
-    Object.keys(productosData.bebidas)[0]
-  );
-  const [carrito, setCarrito] = useState([]);
-  const [cantidadProductos, setCantidadProductos] = useState(0);
-  const [totalPrecioProductoSumado, setTotalPrecioProductoSumado] = useState(0);
 
+  // Estados para animaciones con scroll
+  const [scrollY, setScrollY] = useState(0);   // posición vertical de la página
+  const [scale, setScale] = useState(1);       // tamaño de elementos (escala)
+  const [opacity, setOpacity] = useState(1);   // transparencia de elementos
+  const [mostrarClase, setMostrarClase] = useState(''); // controla si se muestra un panel oculto
+
+  const navigate = useNavigate(); // Permite navegar entre páginas (ej: login, registro)
+
+  // Estados para categorías y carrito
+  const [categoriaActiva, setCategoriaActiva] = useState('bebidas'); // categoría seleccionada por defecto
+  const [subCategoriaActiva, setSubCategoriaActiva] = useState(
+    Object.keys(productosData.bebidas)[0] // primera subcategoría de bebidas
+  );
+  const [carrito, setCarrito] = useState([]); // productos agregados al carrito
+  const [cantidadProductos, setCantidadProductos] = useState(0); // cantidad total de productos
+  const [totalPrecioProductoSumado, setTotalPrecioProductoSumado] = useState(0); // suma de precios
+
+  // Objeto que organiza productos por categoría
   const productosPorCategoria = {
     bebidas: productosData.bebidas,
     comidas: productosData.comidas,
     postres: productosData.postres,
   };
 
+  // Función para hacer scroll suave hacia un contenedor específico
   const handleRef = (c) => {
     if (c) {
       c.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  // Cambiar categoría activa y actualizar subcategoría
   const categoriaSeleccionadaProductos = (event) => {
     const valorSeleccionado = event.target.value;
     setCategoriaActiva(valorSeleccionado);
 
+    // Selecciona automáticamente la primera subcategoría de la categoría elegida
     const primeraSub = Object.keys(productosPorCategoria[valorSeleccionado])[0];
     setSubCategoriaActiva(primeraSub);
   };
 
+  // Animaciones iniciales al montar el componente (cuando aparece la página)
   useEffect(() => {
     const supTitulo = document.getElementsByClassName('bienvenido')[0];
     const tituloPrincipal = document.getElementsByClassName('titulo_principal')[0];
@@ -52,6 +67,7 @@ export const Layout = () => {
     const tituloBoton = document.getElementsByClassName('boton_avanzar')[0];
     const imagenPrincipal = document.getElementsByClassName('primera_imagen')[0];
 
+    // Después de 300ms, añade clases CSS para animar cada elemento
     setTimeout(() => {
       supTitulo.classList.add('aparecimiento_suave-Arriba');
       tituloPrincipal.classList.add('aparecimiento_suave-Abajo');
@@ -61,34 +77,57 @@ export const Layout = () => {
     }, 300);
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const newScrollY = window.scrollY;
-      setScrollY(newScrollY);
-
-      const newScale = Math.max(0.7, 1 - newScrollY / 1000);
-      setScale(newScale);
-
-      const newOpacity = Math.max(0, 1 - newScrollY / 300);
-      setOpacity(newOpacity);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
+  // Estado para saber si el usuario está registrado
   const [registrado, setRegistrado] = useState(false);
 
+  // Cambiar estado de registro (true/false)
   const gestionarCambio = () => {
     setRegistrado(!registrado);
   }
 
+  // Eliminar producto del carrito por nombre
   const gestionarEliminacion = (nombre) => {
-    setCarrito(prev => prev.filter(p => p.nombreProducto !== nombre));
-  }
+  setCarrito(prev => {
+    const nuevoCarrito = prev.filter(p => p.nombreProducto !== nombre);
 
-  const [valorInputCantidadProducto, setValorInputCantidadProducto] = useState(0);
+    // recalcular cantidad de productos distintos
+    setCantidadProductos(nuevoCarrito.length);
 
+    // recalcular suma total de precios
+    const nuevoTotal = nuevoCarrito.reduce(
+      (acc, producto) => acc + (producto.precioProducto * producto.cantidad),
+      0
+    );
+    setTotalPrecioProductoSumado(nuevoTotal);
+
+    return nuevoCarrito;
+  });
+};
+
+  useEffect(() => {
+    // Selecciona todos los elementos que quieres animar
+    const elementos = document.querySelectorAll('.fade-in');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Cuando el elemento entra en pantalla, añade la clase visible
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.2 } // se activa cuando el 20% del elemento es visible
+    );
+
+    elementos.forEach((el) => observer.observe(el));
+
+    return () => {
+      elementos.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
+
+  
   return (
     <>
       <div className='contenedor_Principal'>
@@ -113,7 +152,10 @@ export const Layout = () => {
         </div>
       </div>
       {/* --- SEGUNDA PAGINA ---*/}
-      <div className='contenedor_Principal-2' ref={contenedor2Ref} >
+      <FadeOnScroll trigger={0.8}>
+        <div
+        className='contenedor_Principal-2'
+        ref={contenedor2Ref}>
         <div className='hero_2'>
           <section className='titulo_y_otros-Productos-en-venta'>
             <div>
@@ -124,7 +166,7 @@ export const Layout = () => {
                     width="20" height="20" 
                     viewBox="0 0 24 24" 
                     fill="none" stroke="white" 
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="23 4 23 10 17 10" />
                   <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
                 </svg>
@@ -167,6 +209,8 @@ export const Layout = () => {
             </div>
             <hr />
           </section>
+
+          {/* Contenedor de productos renderizados dinámicamente en sus Cartas*/}
           <div className="contenedor_Productos">
             <AnimatePresence mode="sync">
               {productosPorCategoria[categoriaActiva][subCategoriaActiva] &&
@@ -186,8 +230,6 @@ export const Layout = () => {
                       setCantidadProductos={setCantidadProductos}
                       totalPrecioProductoSumado={totalPrecioProductoSumado}
                       setTotalPrecioProductoSumado={setTotalPrecioProductoSumado}
-                      valorInputCantidadProducto={valorInputCantidadProducto}
-                      setValorInputCantidadProducto={setValorInputCantidadProducto}
                     />
                   </motion.div>
                 ))}
@@ -254,60 +296,105 @@ export const Layout = () => {
           </section>
         </div>
       </div>
-      <div className='contenedor_Principal-3' ref={contenedor3Ref}>
-        <div>
-          <h3>Productos agregados:</h3>
-          <hr />
-          <div className='contenedor_secundario-Carrito'>
-            <div className='mega_contenedor_listaProductos'>
-                          <div className='contenedor_lista-Productos'>
+      </FadeOnScroll>
+      {/* TERCERA PAGINA */}
+      <FadeOnScroll trigger={0.8}>
+  <div
+    className='contenedor_Principal-3'
+    style={{ 
+      transform: `scale(${scale})`, 
+      opacity: opacity 
+    }}
+    ref={contenedor3Ref}
+  >
+    <div>
+      <h3>Productos agregados:</h3>
+      <hr />
+      <div className='contenedor_secundario-Carrito'>
+        <div className='mega_contenedor_listaProductos'>
+          <div className='contenedor_lista-Productos'>
             <ul className='lista_productos-Agg'>
-              {carrito.map((producto, index) => (
-                <li key={index}>{`${producto.nombreProducto} - ${producto.cantidad} `}<MiniButton
-                  color={'hsla(0, 0%, 88%, 0.78)'}
-                  contenido={
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg" 
-                      width="24" height="24" 
-                      viewBox="0 0 24 24" 
-                      fill="none" stroke="currentColor" 
-                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="3 6 5 6 21 6"></polyline>
-                    <path d="M19 6l-1 14H6L5 6"></path>
-                    <path d="M10 11v6"></path>
-                    <path d="M14 11v6"></path>
-                    <path d="M9 6V4h6v2"></path>
-                  </svg>
-                  }
-                  width={40}
-                  onClick={() => gestionarEliminacion(producto.nombreProducto)}/></li>
-              ))}
+              {carrito.map((producto, index) => {
+                // Calculamos subtotal de cada producto
+                const subtotal = producto.precioProducto * producto.cantidad;
+                return (
+                  <li key={index}>
+                    <div className='contenidoLista'>
+                      <span>
+                        <strong>{producto.nombreProducto}</strong>  
+                        {" - Cantidad: "}{producto.cantidad}  
+                        {" - Precio: $"}{producto.precioProducto}  
+                        {" - Subtotal: $"}{subtotal}
+                      </span>
+                      <MiniButton
+                        color={'hsla(0, 0%, 88%, 0.78)'}
+                        contenido={
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg" 
+                            width="24" height="24" 
+                            viewBox="0 0 24 24" 
+                            fill="none" stroke="currentColor" 
+                            strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6l-1 14H6L5 6"></path>
+                            <path d="M10 11v6"></path>
+                            <path d="M14 11v6"></path>
+                            <path d="M9 6V4h6v2"></path>
+                          </svg>
+                        }
+                        width={40}
+                        onClick={() => gestionarEliminacion(producto.nombreProducto)}
+                      />
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
-            </div>
-            <div className='contenedor_boton-Carrito'>
-                <Button contenido={
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      Comprar
-                      <svg xmlns="http://www.w3.org/2000/svg" 
-                         width="24" height="24" 
-                         viewBox="0 0 24 24" 
-                         fill="none" stroke="currentColor" 
-                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="9" cy="21" r="1" />
-                      <circle cx="20" cy="21" r="1" />
-                      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-                    </svg>
-                  </span>
-              }/>
-            </div>
-            </div>
-          <div className='contenedor_estadisticas'>
-              <Estadisticas cantidadProductos={cantidadProductos}
-                totalPrecioProductoSumado={totalPrecioProductoSumado}/>
           </div>
+
+          {/* Botón de comprar */}
+          <div className='contenedor_boton-Carrito'>
+            <Button 
+              contenido={
+                <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  Comprar
+                  <svg xmlns="http://www.w3.org/2000/svg" 
+                    width="24" height="24" 
+                    viewBox="0 0 24 24" 
+                    fill="none" stroke="currentColor" 
+                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg>
+                </span>
+              }
+            />
           </div>
         </div>
+
+        {/* Estadísticas generales */}
+        <div className='contenedor_estadisticas'>
+          <Estadisticas 
+            cantidadProductos={cantidadProductos}                 // número de productos distintos
+            totalPrecioProductoSumado={totalPrecioProductoSumado} // suma de precios de todos los productos
+            carrito={carrito}                                     // lista completa de productos en el carrito
+            userInfo={{                                           // datos del usuario
+              id: contador,
+              nombre: usuario,
+              telefono: telefono,
+              direccion: municipioActivo,
+              precioMensajeria: precioMensajeria
+            }}
+          />
+        </div>
       </div>
+    </div>
+  </div>
+</FadeOnScroll>
+
+
+      {/* FOOTER */}
       <div className='contenedor_Footer'>
         <footer>
           <div className='sub_contenedor-Footer'>

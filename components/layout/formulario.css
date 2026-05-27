@@ -10,6 +10,7 @@
     hsl(260, 40%, 20%),
     hsl(250, 40%, 15%)
   );
+  cursor: default;
   font-family: "Lato", sans-serif;
 }
 
@@ -17,7 +18,7 @@
   width: 35%;
   min-height: 300px;
   border-radius: 20px;
-  background: rgba(20, 20, 30, 0.85); /* efecto glass */
+  background: rgba(20, 20, 30, 0.85);
   backdrop-filter: blur(10px);
   border: 1px solid hsl(340, 50%, 70%);
   box-shadow: 0 8px 25px rgba(0,0,0,0.5);
@@ -56,7 +57,9 @@
   gap: 8px;
 }
 
-.contenedorContenido label input {
+.contenedorContenido label input,
+.select_municipios {
+  cursor: pointer;
   border: none;
   border-radius: 10px;
   padding: 12px;
@@ -67,7 +70,8 @@
   transition: box-shadow 0.3s ease, transform 0.2s ease;
 }
 
-.contenedorContenido label input:focus {
+.contenedorContenido label input:focus,
+.select_municipios:focus {
   outline: none;
   box-shadow: inset 0 0 15px hsl(340, 90%, 60%);
   transform: scale(1.03);
@@ -101,6 +105,27 @@
 
 .boton_Submit:active {
   transform: scale(0.95);
+}
+
+.super_Contenedor-Label #telefono[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.super_Contenedor-Label #telefono[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.super_Contenedor-Label #telefono[type="number"] {
+  -moz-appearance: textfield;
+}
+
+
+.super_Contenedor-Label > p{
+  font-size: 18px;
+  font-weight: 500;
+  color: hsl(340, 50%, 70%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 @media screen and (width < 1000px) {
