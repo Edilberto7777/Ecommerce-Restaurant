@@ -1,5 +1,5 @@
 // Importamos los estilos que darán forma y colores a este componente
-import './estadisticas.css' 
+import '../../estilos/estadisticas.css' 
 
 /*
     Este componente muestra un resumen detallado del carrito.
@@ -10,13 +10,9 @@ import './estadisticas.css'
       - carrito: lista de productos con nombre, cantidad y precio.
 */
 
-export const Estadisticas = ({ cantidadProductos, totalPrecioProductoSumado, carrito = [], userInfo }) => {
-  
-  // Calculamos el total general sumando cada subtotal
-  const totalGeneral = carrito.reduce(
-    (acc, producto) => acc + (producto.precioProducto * producto.cantidad), 
-    0
-  );
+export const Estadisticas = ({ cantidadProductos, totalPrecioProductoSumado, carrito = [], infoUser}) => {
+
+  const totalGeneral = totalPrecioProductoSumado + infoUser?.precioMensajeria;
 
   return (
     <div className='estadisticas'>
@@ -26,12 +22,12 @@ export const Estadisticas = ({ cantidadProductos, totalPrecioProductoSumado, car
         <h3>Detalle por producto:</h3>
         <hr />
         <ul>
-          <li>ID: { userInfo?.id }</li>
-          <li>Nombre: { userInfo?.nombre }</li>
-          <li>Teléfono: { userInfo?.telefono }</li>
-          <li>Dirección: {userInfo?.direccion}</li>
-          <li>Costo de mensajería: { userInfo?.precioMensajeria > 0 
-              ? `$${userInfo?.precioMensajeria}` 
+          <li>ID: { infoUser?.id }</li>
+          <li>Nombre: { infoUser?.nombre }</li>
+          <li>Teléfono: { infoUser?.telefono }</li>
+          <li>Dirección: {infoUser?.direccion}</li>
+          <li>Costo de mensajería: { infoUser?.precioMensajeria > 0 
+              ? `$${infoUser?.precioMensajeria}` 
               : 'Sin Domicilio' }</li> 
           <li>Cantidad de productos: { cantidadProductos }</li>
           <li>Suma de todos los productos: ${ totalPrecioProductoSumado }</li>

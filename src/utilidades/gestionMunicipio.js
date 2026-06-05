@@ -1,7 +1,21 @@
 export const municipiosHabana = [
-  'Habana Vieja', 'Centro Habana', 'Vedado', 'Playa',
-  'Marianao', '10 de Octubre', 'Regla', 'Morro'
- ];
+  "Arroyo Naranjo",
+  "Boyeros",
+  "Centro Habana",
+  "Cerro",
+  "Cotorro",
+  "Diez de Octubre",
+  "Guanabacoa",
+  "Habana del Este",
+  "Habana Vieja",
+  "La Lisa",
+  "Marianao",
+  "Playa",
+  "Plaza de la Revolución",
+  "Regla",
+  "San Miguel del Padrón",
+  "Vedado"
+];
 
 export const gestorPrecioMensajeria = (municipio) => {
     switch (municipio) {

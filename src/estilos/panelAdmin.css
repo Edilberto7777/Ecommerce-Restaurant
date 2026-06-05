@@ -1,0 +1,149 @@
+.seccion_PanelAdmin-contenedor{
+  display: flex;
+  width: 100%;
+  height: 500px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+}
+
+.seccion_PanelAdmin{
+  min-width: 25%;
+  min-height: 400px;
+  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.seccion_PanelAdmin div h2{
+  color: rgb(0, 255, 89);
+  font-family: "Fascinate Inline", system-ui;
+}
+
+.contenedor_caracteristicas{
+  display: flex;
+  flex-direction: column;
+}
+
+.contenedor_imagen label p{
+  color: rgb(202, 200, 200);
+}
+
+.contenedor_caracteristicas label{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  color: rgb(202, 200, 200);
+}
+
+.contenedor_caracteristicas label input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.contenedor_caracteristicas label input{
+  border: none;
+  box-shadow: 0 0px 2px rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  height: 30px;
+  padding: 0 5px;
+  font-size: 17px;
+  width: 70%;
+  transition: all ease 0.2s;
+}
+
+.contenedor_caracteristicas label input:focus-visible{
+  outline: none;
+}
+
+.contenedor_caracteristicas label input:hover{
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2);
+}
+
+.contenedor_boton{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  margin-bottom: 10px;
+}
+
+.contenedor_boton .agregarProducto{
+  border: none;
+  border-radius: 5px;
+  width: 100px;
+  height: 40px;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0 0px 2px rgba(255, 255, 255, 0.2);
+  transition: all ease 0.2s;
+}
+
+.contenedor_boton .agregarProducto:hover{  
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2);
+}
+
+.contenedor_boton .agregarProducto:active{
+  scale: 1.05;
+}
+
+.contenedor_absoluto{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.selectorCategoria{
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#selector_Subcategorias{
+  width: 150px;
+  height: 42px;
+  background: linear-gradient( 45deg, hsl(240, 50%, 70%), hsl(200, 50%, 70%) );
+  color: hsl(250, 40%, 15%);
+  font-weight: 700;
+  font-size: 16px;
+  font-family: "Lato", sans-serif;
+  border: 2px solid hsl(340, 50%, 70%);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  transition: all 0.3s ease;
+  padding: 5px 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+#selector_Subcategorias:hover {
+  background: linear-gradient( 45deg, hsl(240, 60%, 75%), hsl(200, 60%, 75%) );
+  box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+}
+
+#selector_Subcategorias:focus {
+  outline: none;
+  border-color: hsl(340, 60%, 75%);
+  box-shadow: 0 0 0 3px rgba(255, 150, 200, 0.4);
+}
+
+@media screen and (width < 560px) {
+
+  #selector_Subcategorias{
+    width: 100px;
+  }
+}
+
+@media screen and (width < 1200px) {
+
+  #selector_Subcategorias{
+    height: 35px;
+    font-size: 18px;
+  }
+}

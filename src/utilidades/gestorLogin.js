@@ -1,6 +1,6 @@
 import { datosEstadisticas } from './datosEstadisticas';
 
-  // LOGIN: busca usuario en localStorage
+  // LOGIN: busca usuario
   const gestionarLogin = (event, datos, navigate, setIsLoggedIn, setMunicipioActivo, telefono, setTelefono, password, usuario, cantContenido, setUsuario, setPrecioMensajeria) => {
     if (datos.usuario && datos.password) {
     
@@ -22,7 +22,7 @@ import { datosEstadisticas } from './datosEstadisticas';
     }
   }
 
-  // REGISTRO: guarda nuevo usuario en localStorage
+  // REGISTRO: guarda nuevo usuario
   const gestionarRegistro = (event, datos, navigate, setIsLoggedIn, setMunicipioActivo, telefono, setTelefono, password, usuario, cantContenido, setUsuario, setPrecioMensajeria) => {
     // Si todos los campos están llenos
     if (datos.usuario && datos.telefono && datos.direccion && datos.password) {

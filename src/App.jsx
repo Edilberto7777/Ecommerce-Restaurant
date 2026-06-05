@@ -1,10 +1,11 @@
 // Importamos las herramientas que vamos a usar
-import React, { createContext, useState } from 'react';
+import '../src/estilos/App.css'
+import { createContext, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-
-import { Layout } from '../components/layout/Main_Layout';
-import { Formulario } from '../components/layout/Formulario';
+import { municipiosHabana, gestorPrecioMensajeria } from './utilidades/gestionMunicipio.js'
+import { Layout } from './componentes/diseno/Main_Layout.jsx'; 
+import { Formulario } from './componentes/diseno/Formulario.jsx';
 
 // Creamos un "contexto" para saber si el usuario está logueado o no
 export const AuthContext = createContext();
@@ -20,30 +21,12 @@ export function AuthProvider({ children }) {
 
 function App() {
   const location = useLocation();
-
-  // ✅ Aquí dentro van los hooks
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
   const [telefono, setTelefono] = useState("");
   const [municipioActivo, setMunicipioActivo] = useState("");
   const [contador, setContador] = useState(1);
   const [precioMensajeria, setPrecioMensajeria] = useState(0);
-
-  const municipiosHabana = [
-    'Habana Vieja', 'Centro Habana', 'Vedado', 'Playa',
-    'Marianao', '10 de Octubre', 'Regla', 'Morro'
-  ];
-
-  const gestorPrecioMensajeria = (municipio) => {
-    switch (municipio) {
-      case 'Habana Vieja': return 600;
-      case 'Centro Habana': return 300;
-      case 'Vedado': return 600;
-      case 'Playa': return 1000;
-      case 'Marianao': return 1500;
-      default: return 0;
-    }
-  };
 
   return (
     <AnimatePresence mode="sync">
@@ -68,7 +51,6 @@ function App() {
             contador={contador} setContador={setContador}
             precioMensajeria={precioMensajeria} setPrecioMensajeria={setPrecioMensajeria}
             municipiosHabana={municipiosHabana}
-            gestorPrecioMensajeria={gestorPrecioMensajeria}
           />
         } />
 
@@ -82,7 +64,6 @@ function App() {
             contador={contador} setContador={setContador}
             precioMensajeria={precioMensajeria} setPrecioMensajeria={setPrecioMensajeria}
             municipiosHabana={municipiosHabana}
-            gestorPrecioMensajeria={gestorPrecioMensajeria}
           />
         } />
       </Routes>

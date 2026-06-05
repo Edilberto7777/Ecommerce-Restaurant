@@ -1,7 +1,6 @@
 import { gestorPrecioMensajeria } from '../utilidades/gestionMunicipio.js';
-import {validarNombre, validarContraseña, validarTelefono} from './validadores.js'
 
-export const datosEstadisticas = (
+export const  datosEstadisticas  = async (
   cantContenido,
   usuario,
   password,
@@ -15,8 +14,10 @@ export const datosEstadisticas = (
   setUsuario,
   setPrecioMensajeria
 ) => {
-    // Busca en la lista guardada en el navegador
-        const usuariosGuardados = JSON.parse(localStorage.getItem('usuarios')) || [];
+        // Busca en la lista de usuarios guardado 
+        const responseUsuarios = await fetch('/.netlify/functions/obtenerUsuarios');
+        const resultUsuarios = await responseUsuarios.json();
+        const usuariosGuardados = resultUsuarios.usuarios || [];
     
         if (cantContenido == 2) {
           // Buscar usuario y contraseña
@@ -44,15 +45,29 @@ export const datosEstadisticas = (
           if (usuarioAntesRegistrado) {
             alert('Ya usted está registrado');
           } else {
-            if (validarNombre(datos.usuario) && validarContraseña(datos.password) && validarTelefono(datos.telefono)) {
+            if (datos.usuario && datos.password && datos.telefono) {
               setMunicipioActivo(datos.direccion);
               setPrecioMensajeria(gestorPrecioMensajeria(datos.direccion))
               usuariosGuardados.push(datos);
-              localStorage.setItem('usuarios', JSON.stringify(usuariosGuardados));
-              setIsLoggedIn(true); 
-              alert("Usuario registrado correctamente ✅");
-              event.target.reset();
-              navigate('/');
+
+              // 3. Guardar usuario en el backend
+              const respuesta = await fetch('/.netlify/functions/guardarUsuario', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usuario: datos })
+              });
+
+              const result = await respuesta.json();
+
+             if (respuesta.ok) {
+                setIsLoggedIn(true); 
+                alert("Usuario registrado correctamente ✅");
+                event.target.reset();
+                navigate('/');
+              } else {
+                alert("Error al registrar usuario ❌");
+                console.error("Error del backend:", result.error);
+              }
             } else if (!validarNombre(datos.usuario)) {
               alert(`${datos.usuario} es un nombre inválido`);
             } else if (!validarContraseña(datos.password)) {

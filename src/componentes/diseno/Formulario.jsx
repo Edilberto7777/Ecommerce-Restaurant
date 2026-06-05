@@ -1,9 +1,10 @@
 // Importamos estilos y librerías necesarias
-import './formulario.css'; // Estilos visuales del formulario
-import { motion } from 'framer-motion'; // Para animaciones suaves
-import { useContext, useState } from 'react'; // Herramientas de React
-import { AuthContext } from '../../src/App'; // Estado global de login
-import { useNavigate } from 'react-router-dom'; // Para cambiar de página
+import '../../estilos/formulario.css';
+import { motion } from 'framer-motion'; 
+import { useContext } from 'react';
+import { AuthContext } from '../../App.jsx';
+import { useNavigate } from 'react-router-dom';
+import { gestionadorSubmit } from '../../utilidades/gestorLogin.js';
 
 // Campos que se muestran si es registro (4 inputs)
 const camposRegistro = [
@@ -19,91 +20,31 @@ const camposLogin = [
   { id: 'password', label: 'Contraseña', type: 'password', placeholder: 'Ej: miContraseña1234' }
 ];
 
-export const Formulario = ({
-  cantContenido,
-  usuario, setUsuario,
-  password, setPassword,
-  telefono, setTelefono,
-  municipioActivo, setMunicipioActivo,
-  contador, setContador,
-  precioMensajeria, setPrecioMensajeria,
-  municipiosHabana,           
-  gestorPrecioMensajeria}) => {
+export const Formulario = ({ cantContenido, usuario, setUsuario, password, setPassword, telefono, setTelefono, municipioActivo, setMunicipioActivo, contador, setContador, setPrecioMensajeria, municipiosHabana}) => {
+
   const { setIsLoggedIn } = useContext(AuthContext); // Permite activar el login global
   const navigate = useNavigate(); // Permite redirigir a otra página
   const campos = cantContenido === 2 ? camposLogin : camposRegistro; // Decide qué campos mostrar
 
-  // LOGIN: busca usuario en localStorage
-  const gestionarLogin = (event, datos) => {
-    // Si el usuario llenó usuario y contraseña
-    if (datos.usuario && datos.password) {
-      // Busca en la lista guardada en el navegador
-      const usuariosGuardados = JSON.parse(localStorage.getItem('usuarios')) || [];
-      const usuarioEncontrado =
-        usuariosGuardados.find((u) => u.usuario === datos.usuario && u.password === datos.password);
-      
-      if (usuarioEncontrado) {
-        // Si lo encuentra → activa login y redirige
-        setIsLoggedIn(true);
-        alert(`Bienvenido ${usuarioEncontrado.usuario} ✅`);
-        event.target.reset(); // Limpia formulario
-        navigate('/'); // Va a la página principal
-      } else {
-        alert("Usuario o contraseña incorrectos ❌");
-      }
-    } else {
-      alert("Por favor, completa todos los campos de login.");
-    }
-  }
-
-  // REGISTRO: guarda nuevo usuario en localStorage
-  const gestionarRegistro = (event, datos) => {
-    // Si todos los campos están llenos
-    if (datos.usuario && datos.telefono && datos.direccion && datos.password) {
-      const usuariosGuardados = JSON.parse(localStorage.getItem('usuarios')) || [];
-      usuariosGuardados.push(datos); // Agrega el nuevo usuario
-      localStorage.setItem('usuarios', JSON.stringify(usuariosGuardados));
-      alert("Usuario registrado correctamente ✅");
-      event.target.reset();
-      navigate('/');
-    } else {
-      alert("Por favor, completa todos los campos de registro.");
-    }
-  }
-
-  // Decide si es login o registro y genera factura
-  const gestionadorSubmit = (event) => {
-    event.preventDefault(); // Evita que la página se recargue
-
-    const formData = new FormData(event.target);
-    const datos = Object.fromEntries(formData.entries());
-
-    // Si es login → validar usuario
-    if (cantContenido === 2) {
-      gestionarLogin(event, datos);
-    } else {
-      // Si es registro → guardar usuario
-      gestionarRegistro(event, datos);
-    }
-
-    // Calcular precio de mensajería
-    setPrecioMensajeria(gestorPrecioMensajeria(municipioActivo));
-    setContador(contador + 1); // Aumenta el número de factura
-  };
-
   // Actualiza estados según input
   const gestionarValores = (event, inputId) => {
     const valorActual = event.target.value;
+    
     switch (inputId) {
-      case 'usuario': setUsuario(valorActual); break;
-      case 'password': setPassword(valorActual); break;
-      case 'telefono': setTelefono(valorActual); break;
+      case 'usuario':
+        setUsuario(valorActual);
+        break;
+      case 'password':
+        setPassword(valorActual);
+        break;
+      case 'telefono':
+        setTelefono(valorActual);
+        break;
       case 'direccion':
         setMunicipioActivo(valorActual);
-        setPrecioMensajeria(gestorPrecioMensajeria(valorActual)); // ✅ aquí actualizas
-      break;;
+        break;
     }
-  }
+  };
 
   return (
     <motion.div
@@ -113,7 +54,8 @@ export const Formulario = ({
       exit={{ opacity: 0, y: -30 }} // Animación al desaparecer
       transition={{ duration: 0.6 }}
     >
-      <form className="formulario" onSubmit={gestionadorSubmit}>
+      <form className="formulario" onSubmit={(event) => gestionadorSubmit(event, cantContenido, contador, setContador, setPrecioMensajeria, municipioActivo, setMunicipioActivo, navigate, setIsLoggedIn, telefono, setTelefono, password, usuario, setUsuario)
+      }>
         <div className="sub_Formulario">
           <div className="contenedor_Titulo-Form">
             {/* Título cambia según login o registro */}

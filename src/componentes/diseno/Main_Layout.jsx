@@ -1,16 +1,19 @@
 // Importa estilos y dependencias necesarias
-import './main_layout.css'
-import { useState, useEffect, useRef } from 'react';
-import { Button } from '../ui/Buttons'; // Botón reutilizable
+import '../../estilos/main_layout.css'
+import { useState, useEffect, useRef, useContext } from 'react';
+import { AuthContext } from '../../App';
+import { Button } from '../ui/Boton'; // Botón reutilizable
 import { CartaProducto } from '../ui/CartaProducto'; // Tarjeta de producto
-import productosData from '../../src/data/productos.json'; // Datos de productos
-import { HiddenComp } from '../ui/HiddenComp';  // Panel oculto para elegir subcategorías
+import productosData from '../../datos/productos.json'; // Datos de productos
+import { ComponenteOculto } from '../ui/ComponenteOculto';  // Panel oculto para elegir subcategorías
 import { useNavigate } from 'react-router-dom'; // Para cambiar de página
 import { motion } from 'framer-motion'; // Animaciones
 import { AnimatePresence } from 'framer-motion'; // Animaciones de entrada/salida
-import { MiniButton } from '../ui/MiniButton'; // Botón pequeño reutilizable
+import { MiniBoton } from '../ui/MiniBoton'; // Botón pequeño reutilizable
 import { Estadisticas } from '../ui/Estadisticas'; // Resumen del carrito
-import { FadeOnScroll } from './FadeOnScroll';
+import { EfectoEntrada } from './EfectoEntrada';
+import { generarFactura } from '../../utilidades/generarFactura.js';
+import { Panel } from '../ui/PanelAdmin.jsx';
 
 export const Layout = ({usuario, telefono, municipioActivo, contador, precioMensajeria}) => {
 
@@ -18,11 +21,8 @@ export const Layout = ({usuario, telefono, municipioActivo, contador, precioMens
   const contenedor2Ref = useRef(null);
   const contenedor3Ref = useRef(null);
 
-  // Estados para animaciones con scroll
-  const [scrollY, setScrollY] = useState(0);   // posición vertical de la página
-  const [scale, setScale] = useState(1);       // tamaño de elementos (escala)
-  const [opacity, setOpacity] = useState(1);   // transparencia de elementos
-  const [mostrarClase, setMostrarClase] = useState(''); // controla si se muestra un panel oculto
+  // Controla si se muestra un panel oculto
+  const [mostrarClase, setMostrarClase] = useState(''); 
 
   const navigate = useNavigate(); // Permite navegar entre páginas (ej: login, registro)
 
@@ -77,12 +77,12 @@ export const Layout = ({usuario, telefono, municipioActivo, contador, precioMens
     }, 300);
   }, []);
 
-  // Estado para saber si el usuario está registrado
-  const [registrado, setRegistrado] = useState(false);
+  // Estado para saber si el usuario está cambioEstado
+  const [cambioEstado, setCambioEstado] = useState(false);
 
   // Cambiar estado de registro (true/false)
   const gestionarCambio = () => {
-    setRegistrado(!registrado);
+    setCambioEstado(!cambioEstado);
   }
 
   // Eliminar producto del carrito por nombre
@@ -99,34 +99,70 @@ export const Layout = ({usuario, telefono, municipioActivo, contador, precioMens
       0
     );
     setTotalPrecioProductoSumado(nuevoTotal);
-
+   
     return nuevoCarrito;
   });
-};
+  };
+  
+  const { isLoggedIn } = useContext(AuthContext);
 
-  useEffect(() => {
-    // Selecciona todos los elementos que quieres animar
-    const elementos = document.querySelectorAll('.fade-in');
+  // Datos del usuario
+  const infoUser = { 
+    id: contador,
+    nombre: usuario,
+    telefono: telefono,
+    direccion: municipioActivo,
+    precioMensajeria: precioMensajeria
+  }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Cuando el elemento entra en pantalla, añade la clase visible
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      { threshold: 0.2 } // se activa cuando el 20% del elemento es visible
-    );
+const gestionarCompra = async (infoUser, carrito, cantidadProductos, totalPrecioProductoSumado) => {
+  const factura = generarFactura(infoUser, carrito, cantidadProductos, totalPrecioProductoSumado);
 
-    elementos.forEach((el) => observer.observe(el));
+  const response = await fetch('/.netlify/functions/guardarFactura', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ factura })
+  });
 
-    return () => {
-      elementos.forEach((el) => observer.unobserve(el));
-    };
-  }, []);
+  // 2. Procesar la respuesta
+  const result = await response.json();
 
+  // 4. Confirmación al usuario
+  if (response.ok) {
+    alert(`Tu pedido ha sido enviado y guardado correctamente ✅\nMensaje del backend: ${result.message}`);
+    console.log(result);
+  } else {
+    alert("Hubo un error al procesar tu pedido ❌");
+    console.error("Error del backend:", result.error);
+  }
+  } 
+  
+  const insertarProductoBD = async (nombre, precio, url, stock) => {
+    const producto = {
+      nombre,
+      precio,
+      url,
+      stock
+    }
+
+    const response = await fetch('/.netlify/functions/guardarProducto', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ producto })
+    });    
+
+    // 2. Procesar la respuesta
+    const result = await response.json();
+
+    // 4. Confirmación al usuario
+    if (response.ok) {
+      alert(`Tu producto ha sido enviado y guardado correctamente ✅\nMensaje del backend: ${result.message}`);
+      console.log(result);
+    } else {
+      alert("Hubo un error al procesar tu producto ❌");
+      console.error("Error del backend:", result.error);
+    }
+  }
   
   return (
     <>
@@ -146,23 +182,26 @@ export const Layout = ({usuario, telefono, municipioActivo, contador, precioMens
         </div>
         <div className='hero_aside'>
             <div className='agrupador_imagenes'>
-              <img className='primera_imagen' src="../../src/assets/oasis.png" alt="oasis" width={800} height={800} />
+              <img className='primera_imagen' src="../../src/recursos/oasis.png" alt="oasis" width={800} height={800} />
             </div>
         </div>
         </div>
       </div>
       {/* --- SEGUNDA PAGINA ---*/}
-      <FadeOnScroll trigger={0.8}>
+      <span ref={contenedor2Ref}></span>
+      <EfectoEntrada trigger={0.8}>
         <div
-        className='contenedor_Principal-2'
-        ref={contenedor2Ref}>
+          className='contenedor_Principal-2'
+       >
         <div className='hero_2'>
           <section className='titulo_y_otros-Productos-en-venta'>
             <div>
               <h2>Productos en venta:</h2>
               <div className='contenedor_botones'>
                 <div className='contenedor_botones-registro'>
-                  <MiniButton contenido={<svg xmlns="http://www.w3.org/2000/svg" 
+                    {!isLoggedIn && (
+                      <>
+                        <MiniBoton contenido={<svg xmlns="http://www.w3.org/2000/svg" 
                     width="20" height="20" 
                     viewBox="0 0 24 24" 
                     fill="none" stroke="white" 
@@ -172,10 +211,10 @@ export const Layout = ({usuario, telefono, municipioActivo, contador, precioMens
                 </svg>
                 } width={50} onClick={gestionarCambio} />
                   <Button
-                    contenidoMovil={registrado ? 'I-S..' : 'Regis...'}
+                    contenidoMovil={cambioEstado ? 'I-S..' : 'Regis...'}
                     contenido={<span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    {registrado ? 'Iniciar Sesión' : 'Registrarse'}
-                    {registrado ? (
+                    {cambioEstado ? 'Iniciar Sesión' : 'Registrarse'}
+                    {cambioEstado ? (
                       // Ícono login
                       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" 
                            viewBox="0 0 24 24" fill="none" stroke="currentColor" 
@@ -192,10 +231,12 @@ export const Layout = ({usuario, telefono, municipioActivo, contador, precioMens
                         <circle cx="12" cy="7" r="4" />
                         <path d="M5.5 21a8.38 8.38 0 0 1 13 0" />
                       </svg>
-                    )}
+                      )}
                   </span>}
-                    btnUrl={'../../src/assets/logoInicioS.png'}
-                    onClick={() => navigate( registrado  ? '/login': '/registro')}/>
+                    btnUrl={'../../src/recursos/logoInicioS.png'}
+                    onClick={() => navigate( cambioEstado  ? '/login': '/registro')}/>
+                      </>
+                  )}
                 </div>
                 <select name="selector" id="selector_categorias" value={categoriaActiva}
                   onChange={categoriaSeleccionadaProductos}>
@@ -287,7 +328,7 @@ export const Layout = ({usuario, telefono, municipioActivo, contador, precioMens
             </div>
             {mostrarClase === 'activo' && (
               <div className="overlay">
-                <HiddenComp
+                <ComponenteOculto
                   onclick={() => setMostrarClase('')}
                   arreglo={productosPorCategoria[categoriaActiva]}
                   setSubCategoriaActiva={ setSubCategoriaActiva } />
@@ -296,17 +337,14 @@ export const Layout = ({usuario, telefono, municipioActivo, contador, precioMens
           </section>
         </div>
       </div>
-      </FadeOnScroll>
+      </EfectoEntrada>
+
       {/* TERCERA PAGINA */}
-      <FadeOnScroll trigger={0.8}>
-  <div
-    className='contenedor_Principal-3'
-    style={{ 
-      transform: `scale(${scale})`, 
-      opacity: opacity 
-    }}
-    ref={contenedor3Ref}
-  >
+  <EfectoEntrada trigger={0.8}>
+    <div
+      className='contenedor_Principal-3'
+      ref={contenedor3Ref}
+    >
     <div>
       <h3>Productos agregados:</h3>
       <hr />
@@ -326,7 +364,7 @@ export const Layout = ({usuario, telefono, municipioActivo, contador, precioMens
                         {" - Precio: $"}{producto.precioProducto}  
                         {" - Subtotal: $"}{subtotal}
                       </span>
-                      <MiniButton
+                      <MiniBoton
                         color={'hsla(0, 0%, 88%, 0.78)'}
                         contenido={
                           <svg
@@ -354,21 +392,23 @@ export const Layout = ({usuario, telefono, municipioActivo, contador, precioMens
 
           {/* Botón de comprar */}
           <div className='contenedor_boton-Carrito'>
-            <Button 
-              contenido={
-                <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  Comprar
-                  <svg xmlns="http://www.w3.org/2000/svg" 
-                    width="24" height="24" 
-                    viewBox="0 0 24 24" 
-                    fill="none" stroke="currentColor" 
-                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="9" cy="21" r="1" />
-                    <circle cx="20" cy="21" r="1" />
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-                  </svg>
-                </span>
-              }
+                  <Button 
+                    onClick={() => gestionarCompra(infoUser, carrito, cantidadProductos, totalPrecioProductoSumado)}
+                    contenidoMovil={'Comprar'}
+                    contenido={
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        Comprar
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                          width="24" height="24" 
+                          viewBox="0 0 24 24" 
+                          fill="none" stroke="currentColor" 
+                          strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <circle cx="9" cy="21" r="1" />
+                          <circle cx="20" cy="21" r="1" />
+                          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                        </svg>
+                      </span>
+                    }
             />
           </div>
         </div>
@@ -376,24 +416,20 @@ export const Layout = ({usuario, telefono, municipioActivo, contador, precioMens
         {/* Estadísticas generales */}
         <div className='contenedor_estadisticas'>
           <Estadisticas 
-            cantidadProductos={cantidadProductos}                 // número de productos distintos
+            cantidadProductos={cantidadProductos} // número de productos distintos
             totalPrecioProductoSumado={totalPrecioProductoSumado} // suma de precios de todos los productos
-            carrito={carrito}                                     // lista completa de productos en el carrito
-            userInfo={{                                           // datos del usuario
-              id: contador,
-              nombre: usuario,
-              telefono: telefono,
-              direccion: municipioActivo,
-              precioMensajeria: precioMensajeria
-            }}
+            carrito={carrito} // lista completa de productos en el carrito
+            infoUser={infoUser}
           />
         </div>
       </div>
     </div>
   </div>
-</FadeOnScroll>
-
-
+  </EfectoEntrada>
+      
+      <Panel categoriaActiva={categoriaActiva}
+        categoriaSeleccionadaProductos={categoriaSeleccionadaProductos} />
+      
       {/* FOOTER */}
       <div className='contenedor_Footer'>
         <footer>
@@ -414,7 +450,7 @@ export const Layout = ({usuario, telefono, municipioActivo, contador, precioMens
               <p>Contacto: <a href="tel:51473847">51473847</a></p>
             </address>
             <div>
-              <img src="../../src/assets/codigoQR.jpg" alt="codigo QR"  width={150}/>
+              <img src="../../src/recursos/codigoQR.jpg" alt="codigo QR"  width={150}/>
             </div>
           </div>
         </footer>

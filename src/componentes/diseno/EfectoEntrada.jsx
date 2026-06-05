@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 
-export const FadeOnScroll = ({ children, trigger = 0.5 }) => {
+export const EfectoEntrada = ({ children, trigger = 0.5}) => {
   const ref = useRef(null);
   const [style, setStyle] = useState({ opacity: 0, transform: "scale(0.8)" });
 

@@ -1,0 +1,55 @@
+.estadisticas{
+  outline: 1px solid hsl(340, 50%, 70%);
+  width: 90%;
+  height: 90%;
+}
+
+.sup_contenedor-Estadistica{
+  height: 80%;
+}
+
+.sub_contenedor-Estadistica{
+  height: 20%;
+}
+
+div section h2{
+  margin-left: 20px;
+}
+
+@media screen and (width < 1270px) {
+  .estadisticas{
+    height: 350px;
+  }
+}
+
+@media screen and (width < 560px) {
+  .estadisticas{
+    height: 380px;
+  }
+}
+
+@media screen and (width < 440px) {
+  .estadisticas{
+    height: 420px;
+    width: 99%;
+  }
+
+  .sup_contenedor-Estadistica ul{
+    height: 90%;
+  }
+
+  .sub_contenedor-Estadistica{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sup_contenedor-Estadistica ul{
+    padding: 0;
+    padding-left: 20px;
+  }
+
+  div section h2{
+    margin: 0;
+  }
+}

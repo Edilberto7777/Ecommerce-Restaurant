@@ -1,4 +1,4 @@
-import './miniButton.css' // Importa los estilos CSS específicos para este botón pequeño.
+import '../../estilos/miniBoton.css' // Importa los estilos CSS específicos para este botón pequeño.
 
 /*
     Es un componente funcional que recibe props:
@@ -8,7 +8,7 @@ import './miniButton.css' // Importa los estilos CSS específicos para este bot�
       - onClick: función que se ejecuta al hacer clic.
 */
 
-export const MiniButton = ({ contenido, width, color, onClick }) => {
+export const MiniBoton = ({ contenido, width, color, onClick }) => {
   return (
     <button
       type="button"

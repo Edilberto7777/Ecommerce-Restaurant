@@ -1,7 +1,7 @@
 // Importamos los estilos y los botones que vamos a usar
-import './hiddenComp.css' // Estilos visuales de este componente
-import { Button } from './Buttons' // Botón grande reutilizable
-import { MiniButton } from './MiniButton' // Botón pequeño reutilizable
+import '../../estilos/componenteOculto.css' // Estilos visuales de este componente
+import { Button } from './Boton' // Botón grande reutilizable
+import { MiniBoton } from './MiniBoton' // Botón pequeño reutilizable
 
 /*
     Este componente muestra una ventana lateral (un panel oculto)
@@ -13,7 +13,7 @@ import { MiniButton } from './MiniButton' // Botón pequeño reutilizable
       - setSubCategoriaActiva: función para activar la subcategoría elegida.
 */
 
-export const HiddenComp = ({ onclick, arreglo, setSubCategoriaActiva }) => {
+export const ComponenteOculto = ({ onclick, arreglo, setSubCategoriaActiva }) => {
   return (
     <div
       className='aside_Subproductos-oculto activo'
@@ -39,7 +39,7 @@ export const HiddenComp = ({ onclick, arreglo, setSubCategoriaActiva }) => {
               <p>{grupo.toLocaleUpperCase()}</p>
               
               {/* Botón pequeño con ícono de check ✔ para seleccionar la subcategoría */}
-              <MiniButton 
+              <MiniBoton 
                 contenido={
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" 
                        viewBox="0 0 24 24" fill="none" stroke="white" 

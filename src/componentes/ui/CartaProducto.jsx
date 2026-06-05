@@ -1,10 +1,10 @@
 // Importamos el botón reutilizable y los estilos de la carta
-import { Button } from "./Buttons"; 
-import './cartaProducto.css'; 
+import { Button } from "./Boton"; 
+import '../../estilos/cartaProducto.css'; 
 
 // Importamos herramientas de React y el contexto de login
 import { useContext, useState } from 'react'; 
-import { AuthContext } from '../../src/App'; 
+import { AuthContext } from '../../App'; 
 import { useNavigate } from 'react-router-dom'; 
 
 /*
@@ -24,15 +24,10 @@ import { useNavigate } from 'react-router-dom';
       - setTotalPrecioProductoSumado: función para actualizar esa suma.
 */
 
-export const CartaProducto = ({ 
-  subProducto, 
-  carrito, 
-  setCarrito, 
-  cantidadProductos, 
-  setCantidadProductos, 
-  totalPrecioProductoSumado, 
-  setTotalPrecioProductoSumado
-}) => {
+export const CartaProducto = ({ subProducto, ...props }) => {
+
+  const { carrito, setCarrito, cantidadProductos, setCantidadProductos,
+              totalPrecioProductoSumado, setTotalPrecioProductoSumado } = props;
   const { isLoggedIn } = useContext(AuthContext); // Verifica si el usuario está conectado
   const navigate = useNavigate(); // Permite redirigir al login si no lo está
 

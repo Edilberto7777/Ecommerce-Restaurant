@@ -1,5 +1,5 @@
 // Importamos los estilos que le dan forma y colores al botón
-import './buttons.css' 
+import '../../estilos/boton.css' 
 
 // Importamos herramientas de React para manejar cambios y efectos
 import { useState, useEffect } from 'react'; 
