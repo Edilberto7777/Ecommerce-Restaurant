@@ -1,4 +1,4 @@
-import { supabase } from '../../../src/servicios/supabase.js';
+import { supabase } from './servicios/supabase.js';
 
 export async function handler(event) {
   try {

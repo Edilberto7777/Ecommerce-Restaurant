@@ -1,4 +1,4 @@
-import { supabase } from '../servicios/supabase.js';
+import { supabase } from './servicios/supabase.js';
 
 export async function handler() {
   try {
@@ -7,11 +7,20 @@ export async function handler() {
       .select('*');
 
     if (error) {
-      return { statusCode: 400, body: JSON.stringify({ error: error.message }) };
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: error.message })
+      };
     }
 
-    return { statusCode: 200, body: JSON.stringify({ usuarios: data }) };
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ usuarios: data })
+    };
   } catch (err) {
-    return { statusCode: 500, body: JSON.stringify({ error: "Error interno en obtenerUsuarios" }) };
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "Error interno en obtenerUsuarios" })
+    };
   }
 }

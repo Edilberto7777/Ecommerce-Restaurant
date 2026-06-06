@@ -15,7 +15,7 @@ export const  datosEstadisticas  = async (
   setPrecioMensajeria
 ) => {
         // Busca en la lista de usuarios guardado 
-        const responseUsuarios = await fetch('/.netlify/functions/obtenerUsuarios');
+        const responseUsuarios = await fetch('/.netlify/functions/obtenerUsuario');
         const resultUsuarios = await responseUsuarios.json();
         const usuariosGuardados = resultUsuarios.usuarios || [];
     
@@ -50,12 +50,15 @@ export const  datosEstadisticas  = async (
               setPrecioMensajeria(gestorPrecioMensajeria(datos.direccion))
               usuariosGuardados.push(datos);
 
+              console.log("2ro datos:", datos);
+
               // 3. Guardar usuario en el backend
               const respuesta = await fetch('/.netlify/functions/guardarUsuario', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ usuario: datos })
               });
+
 
               const result = await respuesta.json();
 

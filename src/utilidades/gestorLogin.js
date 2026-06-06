@@ -48,8 +48,10 @@ import { datosEstadisticas } from './datosEstadisticas';
   // Decide si es login o registro y genera factura
   export const gestionadorSubmit = (event, cantContenido, contador, setContador, setPrecioMensajeria, municipioActivo, setMunicipioActivo, navigate, setIsLoggedIn, telefono, setTelefono, password, usuario, setUsuario) => {
     event.preventDefault();
+
     const formData = new FormData(event.target);
     const datos = Object.fromEntries(formData.entries());
+    console.log("1ro datos:", datos);
 
     // Si es login → validar usuario
     if (cantContenido == 2) {
