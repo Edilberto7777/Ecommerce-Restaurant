@@ -16,9 +16,17 @@ export async function handler(event) {
       return { statusCode: 400, body: JSON.stringify({ error: "Teléfono inválido" }) };
     }
 
+    const usuarioParaInsertar = {
+      usuario: datos.usuario,
+      contrasena: datos.password,
+      telefono: datos.telefono,
+      direccion: datos.direccion
+    };
+
     const { data, error } = await supabase
       .from('usuarios')
-      .insert([datos]);
+      .insert([usuarioParaInsertar]);
+
 
     if (error) {
       return { statusCode: 400, body: JSON.stringify({ error: error.message }) };
