@@ -1,9 +1,8 @@
 [build]
-  base = "Restaurante"
   command = "npm run build"
-  publish = "Restaurante/dist"
+  publish = "dist"
 
 [dev]
   command = "npm run dev"
   port = 8888
-  functions = "Restaurante/netlify/functions"
+  functions = "netlify/functions"
