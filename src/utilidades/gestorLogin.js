@@ -51,7 +51,6 @@ import { datosEstadisticas } from './datosEstadisticas';
 
     const formData = new FormData(event.target);
     const datos = Object.fromEntries(formData.entries());
-    console.log("1ro datos:", datos);
 
     // Si es login → validar usuario
     if (cantContenido == 2) {
