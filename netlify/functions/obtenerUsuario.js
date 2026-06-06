@@ -1,8 +1,6 @@
 import { supabase } from './servicios/supabase.js';
 
 export async function handler() {
-  console.log("URL:", process.env.SUPABASE_URL);
-console.log("KEY:", process.env.SUPABASE_SERVICE_ROLE_KEY ? "CARGADA" : "VACÍA");
 
   try {
     const { data, error } = await supabase
