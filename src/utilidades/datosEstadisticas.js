@@ -51,8 +51,6 @@ export const  datosEstadisticas  = async (
               setPrecioMensajeria(gestorPrecioMensajeria(datos.direccion))
               usuariosGuardados.push(datos);
 
-              console.log("2ro datos:", datos);
-
               // 3. Guardar usuario en el backend
               const respuesta = await fetch('/.netlify/functions/guardarUsuario', {
                 method: 'POST',
@@ -60,8 +58,8 @@ export const  datosEstadisticas  = async (
                 body: JSON.stringify({ usuario: datos })
               });
 
-
               const result = await respuesta.json();
+              console.log(respuesta);
 
              if (respuesta.ok) {
                 setIsLoggedIn(true); 

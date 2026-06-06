@@ -4,7 +4,7 @@ import { validarNombre, validarContraseña, validarTelefono } from '../utilidade
 export async function handler(event) {
   try {
     const body = JSON.parse(event.body);
-    const datos = body.usuario; // el objeto con usuario, contraseña, etc.
+    const datos = body.usuario;
 
     if (!validarNombre(datos.usuario)) {
       return { statusCode: 400, body: JSON.stringify({ error: "Nombre inválido" }) };
@@ -23,6 +23,7 @@ export async function handler(event) {
       direccion: datos.direccion
     };
 
+    console.log('----', usuarioParaInsertar);
     const { data, error } = await supabase
       .from('usuarios')
       .insert([usuarioParaInsertar]);
