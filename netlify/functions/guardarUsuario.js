@@ -23,7 +23,6 @@ export async function handler(event) {
       direccion: datos.direccion
     };
 
-    console.log('----', usuarioParaInsertar);
     const { data, error } = await supabase
       .from('usuarios')
       .insert([usuarioParaInsertar]);
