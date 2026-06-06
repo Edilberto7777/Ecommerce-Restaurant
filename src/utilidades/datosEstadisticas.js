@@ -59,7 +59,6 @@ export const  datosEstadisticas  = async (
               });
 
               const result = await respuesta.json();
-              console.log(respuesta);
 
              if (respuesta.ok) {
                 setIsLoggedIn(true); 
