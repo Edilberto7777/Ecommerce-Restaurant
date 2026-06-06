@@ -182,7 +182,7 @@ const gestionarCompra = async (infoUser, carrito, cantidadProductos, totalPrecio
         </div>
         <div className='hero_aside'>
             <div className='agrupador_imagenes'>
-              <img className='primera_imagen' src="/public/oasis.png" alt="oasis" width={800} height={800} />
+              <img className='primera_imagen' src="/oasis.png" alt="oasis" width={800} height={800} />
             </div>
         </div>
         </div>
@@ -233,7 +233,7 @@ const gestionarCompra = async (infoUser, carrito, cantidadProductos, totalPrecio
                       </svg>
                       )}
                   </span>}
-                    btnUrl={'/public/logoInicioS.png'}
+                    btnUrl={'/logoInicioS.png'}
                     onClick={() => navigate( cambioEstado  ? '/login': '/registro')}/>
                       </>
                   )}
@@ -450,7 +450,7 @@ const gestionarCompra = async (infoUser, carrito, cantidadProductos, totalPrecio
               <p>Contacto: <a href="tel:51473847">51473847</a></p>
             </address>
             <div>
-              <img src="/public/codigoQR.jpg" alt="codigo QR"  width={150}/>
+              <img src="/codigoQR.jpg" alt="codigo QR"  width={150}/>
             </div>
           </div>
         </footer>
