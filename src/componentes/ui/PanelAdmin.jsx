@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import '../../estilos/panelAdmin.css';
-import { supabase } from "../../../netlify/functions/servicios/supabase.js";
+import { supabase } from "../../servicios/supabase.js";
 
 
 const seleccionarSubcategoria = (categoria) => {
