@@ -54,7 +54,8 @@ export const Panel = ({ categoriaActiva, categoriaSeleccionadaProductos }) => {
     // obtener URL pública
     const urlPublica = supabase.storage
       .from("imagenes-productos")
-      .getPublicUrl(`productos/${file.name}`).data.publicUrl;
+      .getPublicUrl(`productos/${nombreSeguro}`)
+      .data.publicUrl;
 
     // construir objeto producto
     const producto = {
