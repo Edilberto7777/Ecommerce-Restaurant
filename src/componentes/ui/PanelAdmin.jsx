@@ -27,13 +27,14 @@ export const Panel = ({ categoriaActiva, categoriaSeleccionadaProductos }) => {
     event.preventDefault();
 
     const formData = new FormData(event.target);
+
+    // archivo seleccionado
+    const file = formData.get("imagenProducto");
+
     const nombreSeguro = file.name
       .normalize("NFD")              // quita acentos
       .replace(/[\u0300-\u036f]/g, "") 
       .replace(/[^a-zA-Z0-9._-]/g, "_"); // reemplaza emojis y símbolos por _
-
-    // archivo seleccionado
-    const file = formData.get("imagenProducto");
 
     if (!file || file.size === 0) {
       alert("Debes seleccionar una imagen");
