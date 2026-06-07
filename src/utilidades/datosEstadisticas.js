@@ -14,7 +14,7 @@ export const  datosEstadisticas  = async (
   setUsuario,
   setPrecioMensajeria
 ) => {
-  // Busca en la lista de usuarios guardados
+        // Busca en la lista de usuarios guardados
         const responseUsuarios = await fetch('/.netlify/functions/obtenerUsuario');
         const resultUsuarios = await responseUsuarios.json();
         const usuariosGuardados = resultUsuarios.usuarios || [];

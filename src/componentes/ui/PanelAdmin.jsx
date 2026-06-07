@@ -27,13 +27,17 @@ export const Panel = ({ categoriaActiva, categoriaSeleccionadaProductos }) => {
     event.preventDefault();
 
     const formData = new FormData(event.target);
+    const nombreSeguro = file.name
+      .normalize("NFD")              // quita acentos
+      .replace(/[\u0300-\u036f]/g, "") 
+      .replace(/[^a-zA-Z0-9._-]/g, "_"); // reemplaza emojis y símbolos por _
 
     // archivo seleccionado
     const file = formData.get("imagenProducto");
     // subir a Supabase Storage
     const { data, error } = await supabase.storage
       .from("imagenes-productos")
-      .upload(`productos/${file.name}`, file);
+      .upload(`productos/${nombreSeguro}`, file);
     
     if (error) {
       console.error("Error al subir imagen:", error.message);
@@ -116,7 +120,7 @@ export const Panel = ({ categoriaActiva, categoriaSeleccionadaProductos }) => {
               </label>
               <label htmlFor="precioProducto">
                 <p>Precio:</p>
-                <input type="number" name="precioProducto" id="precioProducto" />
+                <input type="text" name="precioProducto" id="precioProducto" />
               </label>
               <label htmlFor="stockProducto">
                 <p>Stock:</p>
