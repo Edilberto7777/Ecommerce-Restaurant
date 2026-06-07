@@ -22,7 +22,7 @@ export const  datosEstadisticas  = async (
         if (cantContenido == 2) {
           // Buscar usuario y contraseña
           const usuarioEncontrado = usuariosGuardados.find(
-            (u) => u.usuario === usuario && u.password === password && u.telefono && u.direccion
+            (u) => u.usuario === usuario && u.contrasena === password && u.telefono && u.direccion
           );
         
           if (usuarioEncontrado) {
@@ -40,7 +40,7 @@ export const  datosEstadisticas  = async (
         } else {
 
         const usuarioAntesRegistrado = usuariosGuardados.find((u) =>
-          u && u.usuario == usuario && u.password == password);
+          u && u.usuario == usuario && u.contrasena == password);
         
           if (usuarioAntesRegistrado) {
             alert('Ya usted está registrado');
