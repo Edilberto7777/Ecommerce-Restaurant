@@ -34,6 +34,12 @@ export const Panel = ({ categoriaActiva, categoriaSeleccionadaProductos }) => {
 
     // archivo seleccionado
     const file = formData.get("imagenProducto");
+
+    if (!file || file.size === 0) {
+      alert("Debes seleccionar una imagen");
+      return;
+    }
+
     // subir a Supabase Storage
     const { data, error } = await supabase.storage
       .from("imagenes-productos")
@@ -53,7 +59,7 @@ export const Panel = ({ categoriaActiva, categoriaSeleccionadaProductos }) => {
     const producto = {
       nombreProducto: formData.get("nombreProducto"),
       precioProducto: parseFloat(formData.get("precioProducto")),
-      stock: parseInt(formData.get("stock")),
+      stock: parseInt(formData.get("stockProducto")),
       categoria: categoriaActiva,
       subcategoria: subcategoriaActiva,
       url: urlPublica
