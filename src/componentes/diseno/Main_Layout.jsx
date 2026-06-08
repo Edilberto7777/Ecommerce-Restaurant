@@ -26,7 +26,7 @@ export const Layout = ({usuario, telefono, municipioActivo, contador, precioMens
   const [productosBD, setProductosBD] = useState([]);
 
   // Agrupar productos por categoría y subcategoría
-  const productosPorCategoria = useMemo(() => {
+  const productosPorCategoria2 = useMemo(() => {
     return productosBD.reduce((acc, producto) => {
       const { categoria, subcategoria } = producto;
 
@@ -51,19 +51,19 @@ export const Layout = ({usuario, telefono, municipioActivo, contador, precioMens
 
   // Actualizar subcategoría activa cuando cambian los productos o la categoría
   useEffect(() => {
-    if (productosPorCategoria[categoriaActiva]) {
-      const primeraSub = Object.keys(productosPorCategoria[categoriaActiva])[0];
+    if (productosPorCategoria2[categoriaActiva]) {
+      const primeraSub = Object.keys(productosPorCategoria2[categoriaActiva])[0];
       setSubCategoriaActiva(primeraSub || "");
     }
-  }, [productosPorCategoria, categoriaActiva]);
+  }, [productosPorCategoria2, categoriaActiva]);
 
   // Cambiar categoría activa
   const categoriaSeleccionadaProductos = (event) => {
     const valorSeleccionado = event.target.value;
     setCategoriaActiva(valorSeleccionado);
 
-    if (productosPorCategoria[valorSeleccionado]) {
-      const primeraSub = Object.keys(productosPorCategoria[valorSeleccionado])[0];
+    if (productosPorCategoria2[valorSeleccionado]) {
+      const primeraSub = Object.keys(productosPorCategoria2[valorSeleccionado])[0];
       setSubCategoriaActiva(primeraSub || "");
     }
   };
