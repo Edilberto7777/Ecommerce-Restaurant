@@ -24,28 +24,29 @@ export const Panel = ({ categoriaActiva, categoriaSeleccionadaProductos }) => {
   }, [categoriaActiva]);
 
   const manejarSubmit = async (event) => {
-    event.preventDefault();
+  event.preventDefault();
 
-    const formData = new FormData(event.target);
+  const formData = new FormData(event.target);
 
-    // archivo seleccionado
-    const file = formData.get("imagenProducto");
+  // archivo seleccionado
+  const file = formData.get("imagenProducto");
 
-    const nombreSeguro = file.name
-      .normalize("NFD")              // quita acentos
-      .replace(/[\u0300-\u036f]/g, "") 
-      .replace(/[^a-zA-Z0-9._-]/g, "_"); // reemplaza emojis y símbolos por _
+  if (!file || file.size === 0) {
+    alert("Debes seleccionar una imagen");
+    return;
+  }
 
-    if (!file || file.size === 0) {
-      alert("Debes seleccionar una imagen");
-      return;
-    }
+  // generar nombre único con timestamp
+  const nombreSeguro = `${Date.now()}_${file.name
+    .normalize("NFD")              // quita acentos
+    .replace(/[\u0300-\u036f]/g, "") 
+    .replace(/[^a-zA-Z0-9._-]/g, "_")}`; // reemplaza emojis y símbolos por _
 
     // subir a Supabase Storage
     const { data, error } = await supabase.storage
       .from("imagenes-productos")
       .upload(`productos/${nombreSeguro}`, file);
-    
+
     if (error) {
       console.error("Error al subir imagen:", error.message);
       return;
@@ -59,12 +60,12 @@ export const Panel = ({ categoriaActiva, categoriaSeleccionadaProductos }) => {
 
     // construir objeto producto
     const producto = {
-      nombreProducto: formData.get("nombreProducto"),
-      precioProducto: parseFloat(formData.get("precioProducto")),
+      nombreproducto: formData.get("nombreProducto"),
+      precioproducto: parseFloat(formData.get("precioProducto")),
+      url: urlPublica,
       stock: parseInt(formData.get("stockProducto")),
       categoria: categoriaActiva,
-      subcategoria: subcategoriaActiva,
-      url: urlPublica
+      subcategoria: subcategoriaActiva
     };
 
     // Enviar al backend
@@ -78,7 +79,7 @@ export const Panel = ({ categoriaActiva, categoriaSeleccionadaProductos }) => {
 
     if (response.ok) {
       alert("Producto insertado correctamente ✅");
-      console.log("Producto guardado:", result.data[0]);
+      console.log("Producto guardado:", result.data?.[0]);
       event.target.reset();
     } else {
       alert("Error al insertar producto ❌");
