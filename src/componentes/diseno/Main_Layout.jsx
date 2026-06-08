@@ -19,6 +19,7 @@ export const Layout = ({usuario, telefono, municipioActivo, contador, precioMens
  // Referencias a contenedores
   const contenedor2Ref = useRef(null);
   const contenedor3Ref = useRef(null);
+  const [mostrarClase, setMostrarClase] = useState('');
 
   const navigate = useNavigate();
 
