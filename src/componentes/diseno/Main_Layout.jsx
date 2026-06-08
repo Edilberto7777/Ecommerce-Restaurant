@@ -26,6 +26,20 @@ export const Layout = ({usuario, telefono, municipioActivo, contador, precioMens
 
   const navigate = useNavigate(); // Permite navegar entre páginas (ej: login, registro)
 
+  const productosPorCategoria2 = productosBD.reduce((acc, producto) => {
+    const { categoria, subcategoria } = producto;
+
+    if (!acc[categoria]) {
+      acc[categoria] = {};
+    }
+    if (!acc[categoria][subcategoria]) {
+      acc[categoria][subcategoria] = [];
+    }
+
+    acc[categoria][subcategoria].push(producto);
+    return acc;
+  }, {});
+
   // Estados para categorías y carrito
   const [categoriaActiva, setCategoriaActiva] = useState('bebidas'); // categoría seleccionada por defecto
   const [subCategoriaActiva, setSubCategoriaActiva] = useState(
@@ -34,13 +48,6 @@ export const Layout = ({usuario, telefono, municipioActivo, contador, precioMens
   const [carrito, setCarrito] = useState([]); // productos agregados al carrito
   const [cantidadProductos, setCantidadProductos] = useState(0); // cantidad total de productos
   const [totalPrecioProductoSumado, setTotalPrecioProductoSumado] = useState(0); // suma de precios
-
-  // Objeto que organiza productos por categoría
-  const productosPorCategoria = {
-    bebidas: productosData.bebidas,
-    comidas: productosData.comidas,
-    postres: productosData.postres,
-  };
 
   // Función para hacer scroll suave hacia un contenedor específico
   const handleRef = (c) => {
@@ -55,7 +62,7 @@ export const Layout = ({usuario, telefono, municipioActivo, contador, precioMens
     setCategoriaActiva(valorSeleccionado);
 
     // Selecciona automáticamente la primera subcategoría de la categoría elegida
-    const primeraSub = Object.keys(productosPorCategoria[valorSeleccionado])[0];
+    const primeraSub = Object.keys(productosPorCategoria2[valorSeleccionado])[0];
     setSubCategoriaActiva(primeraSub);
   };
 
@@ -163,6 +170,23 @@ const gestionarCompra = async (infoUser, carrito, cantidadProductos, totalPrecio
       console.error("Error del backend:", result.error);
     }
   }
+
+  const [productosBD, setProductosBD] = useState([]);
+
+  useEffect(() => {
+    const fetchProductos = async () => {
+      const response = await fetch('/.netlify/functions/obtenerProducto');
+      const result = await response.json();
+
+      if (response.ok) {
+        setProductosBD(result.productos);
+      } else {
+        console.error("Error al obtener productos:", result.error);
+      }
+    };
+
+    fetchProductos();
+  }, []);
   
   return (
     <>
@@ -254,10 +278,11 @@ const gestionarCompra = async (infoUser, carrito, cantidadProductos, totalPrecio
           {/* Contenedor de productos renderizados dinámicamente en sus Cartas*/}
           <div className="contenedor_Productos">
             <AnimatePresence mode="sync">
-              {productosPorCategoria[categoriaActiva][subCategoriaActiva] &&
-                Object.values(productosPorCategoria[categoriaActiva][subCategoriaActiva]).map((subProducto, index) => (
+              {productosPorCategoria2[categoriaActiva] &&
+                productosPorCategoria2[categoriaActiva][subCategoriaActiva] &&
+                productosPorCategoria2[categoriaActiva][subCategoriaActiva].map((subProducto, index) => (
                   <motion.div
-                    key={subProducto.nombreProducto + index}
+                    key={subProducto.id || index}
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -30 }}
@@ -330,7 +355,7 @@ const gestionarCompra = async (infoUser, carrito, cantidadProductos, totalPrecio
               <div className="overlay">
                 <ComponenteOculto
                   onclick={() => setMostrarClase('')}
-                  arreglo={productosPorCategoria[categoriaActiva]}
+                  arreglo={productosPorCategoria2[categoriaActiva]}
                   setSubCategoriaActiva={ setSubCategoriaActiva } />
               </div>
             )}
