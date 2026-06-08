@@ -76,7 +76,7 @@ export const CartaProducto = ({ subProducto, ...props }) => {
       {/* Imagen y nombre del producto */}
       <div className="contenedor_imagen">
         <img src={subProducto.url} alt="producto" />
-        <p>{subProducto.nombreProducto}</p>
+        <p>{subProducto.nombreproducto}</p>
       </div>
 
       <hr />
@@ -116,7 +116,7 @@ export const CartaProducto = ({ subProducto, ...props }) => {
 
         {/* Precio unitario del producto */}
         <div className="contenedorPrecio">
-          <p>{`$${subProducto.precioProducto}`}</p>
+          <p>{`$${subProducto.precioproducto}`}</p>
         </div>
       </div>
     </div>
