@@ -1,6 +1,6 @@
 // Importa estilos y dependencias necesarias
 import '../../estilos/main_layout.css'
-import { useState, useEffect, useRef, useContext } from 'react';
+import { useState, useEffect, useRef, useContext, useMemo } from 'react';
 import { AuthContext } from '../../App';
 import { Button } from '../ui/Boton'; // Botón reutilizable
 import { CartaProducto } from '../ui/CartaProducto'; // Tarjeta de producto
@@ -16,166 +16,111 @@ import { generarFactura } from '../../utilidades/generarFactura.js';
 import { Panel } from '../ui/PanelAdmin.jsx';
 
 export const Layout = ({usuario, telefono, municipioActivo, contador, precioMensajeria}) => {
-
-  // Referencias a contenedores para hacer scroll automático
+ // Referencias a contenedores
   const contenedor2Ref = useRef(null);
   const contenedor3Ref = useRef(null);
 
-  // Controla si se muestra un panel oculto
-  const [mostrarClase, setMostrarClase] = useState(''); 
+  const navigate = useNavigate();
 
-  const navigate = useNavigate(); // Permite navegar entre páginas (ej: login, registro)
+  // Estado para productos de la BD
+  const [productosBD, setProductosBD] = useState([]);
 
-  const productosPorCategoria2 = productosBD.reduce((acc, producto) => {
-    const { categoria, subcategoria } = producto;
+  // Agrupar productos por categoría y subcategoría
+  const productosPorCategoria = useMemo(() => {
+    return productosBD.reduce((acc, producto) => {
+      const { categoria, subcategoria } = producto;
 
-    if (!acc[categoria]) {
-      acc[categoria] = {};
-    }
-    if (!acc[categoria][subcategoria]) {
-      acc[categoria][subcategoria] = [];
-    }
+      if (!acc[categoria]) {
+        acc[categoria] = {};
+      }
+      if (!acc[categoria][subcategoria]) {
+        acc[categoria][subcategoria] = [];
+      }
 
-    acc[categoria][subcategoria].push(producto);
-    return acc;
-  }, {});
+      acc[categoria][subcategoria].push(producto);
+      return acc;
+    }, {});
+  }, [productosBD]);
 
   // Estados para categorías y carrito
-  const [categoriaActiva, setCategoriaActiva] = useState('bebidas'); // categoría seleccionada por defecto
-  const [subCategoriaActiva, setSubCategoriaActiva] = useState(
-    Object.keys(productosData.bebidas)[0] // primera subcategoría de bebidas
-  );
-  const [carrito, setCarrito] = useState([]); // productos agregados al carrito
-  const [cantidadProductos, setCantidadProductos] = useState(0); // cantidad total de productos
-  const [totalPrecioProductoSumado, setTotalPrecioProductoSumado] = useState(0); // suma de precios
+  const [categoriaActiva, setCategoriaActiva] = useState("bebidas");
+  const [subCategoriaActiva, setSubCategoriaActiva] = useState("");
+  const [carrito, setCarrito] = useState([]);
+  const [cantidadProductos, setCantidadProductos] = useState(0);
+  const [totalPrecioProductoSumado, setTotalPrecioProductoSumado] = useState(0);
 
-  // Función para hacer scroll suave hacia un contenedor específico
-  const handleRef = (c) => {
-    if (c) {
-      c.current.scrollIntoView({ behavior: 'smooth' });
+  // Actualizar subcategoría activa cuando cambian los productos o la categoría
+  useEffect(() => {
+    if (productosPorCategoria[categoriaActiva]) {
+      const primeraSub = Object.keys(productosPorCategoria[categoriaActiva])[0];
+      setSubCategoriaActiva(primeraSub || "");
     }
-  };
+  }, [productosPorCategoria, categoriaActiva]);
 
-  // Cambiar categoría activa y actualizar subcategoría
+  // Cambiar categoría activa
   const categoriaSeleccionadaProductos = (event) => {
     const valorSeleccionado = event.target.value;
     setCategoriaActiva(valorSeleccionado);
 
-    // Selecciona automáticamente la primera subcategoría de la categoría elegida
-    const primeraSub = Object.keys(productosPorCategoria2[valorSeleccionado])[0];
-    setSubCategoriaActiva(primeraSub);
+    if (productosPorCategoria[valorSeleccionado]) {
+      const primeraSub = Object.keys(productosPorCategoria[valorSeleccionado])[0];
+      setSubCategoriaActiva(primeraSub || "");
+    }
   };
 
-  // Animaciones iniciales al montar el componente (cuando aparece la página)
+  // Animaciones iniciales
   useEffect(() => {
-    const supTitulo = document.getElementsByClassName('bienvenido')[0];
-    const tituloPrincipal = document.getElementsByClassName('titulo_principal')[0];
-    const subTitulo = document.getElementsByClassName('mini_mensaje')[0];
-    const tituloBoton = document.getElementsByClassName('boton_avanzar')[0];
-    const imagenPrincipal = document.getElementsByClassName('primera_imagen')[0];
+    const supTitulo = document.getElementsByClassName("bienvenido")[0];
+    const tituloPrincipal = document.getElementsByClassName("titulo_principal")[0];
+    const subTitulo = document.getElementsByClassName("mini_mensaje")[0];
+    const tituloBoton = document.getElementsByClassName("boton_avanzar")[0];
+    const imagenPrincipal = document.getElementsByClassName("primera_imagen")[0];
 
-    // Después de 300ms, añade clases CSS para animar cada elemento
     setTimeout(() => {
-      supTitulo.classList.add('aparecimiento_suave-Arriba');
-      tituloPrincipal.classList.add('aparecimiento_suave-Abajo');
-      subTitulo.classList.add('aparecimiento_suave-Derecha');
-      tituloBoton.classList.add('aparecimiento_suave-Izquierda');
-      imagenPrincipal.classList.add('aparecimiento_suave-Centro');
+      supTitulo?.classList.add("aparecimiento_suave-Arriba");
+      tituloPrincipal?.classList.add("aparecimiento_suave-Abajo");
+      subTitulo?.classList.add("aparecimiento_suave-Derecha");
+      tituloBoton?.classList.add("aparecimiento_suave-Izquierda");
+      imagenPrincipal?.classList.add("aparecimiento_suave-Centro");
     }, 300);
   }, []);
 
-  // Estado para saber si el usuario está cambioEstado
+  // Estado para login/registro
   const [cambioEstado, setCambioEstado] = useState(false);
+  const gestionarCambio = () => setCambioEstado(!cambioEstado);
 
-  // Cambiar estado de registro (true/false)
-  const gestionarCambio = () => {
-    setCambioEstado(!cambioEstado);
-  }
-
-  // Eliminar producto del carrito por nombre
+  // Eliminar producto del carrito
   const gestionarEliminacion = (nombre) => {
-  setCarrito(prev => {
-    const nuevoCarrito = prev.filter(p => p.nombreProducto !== nombre);
+    setCarrito((prev) => {
+      const nuevoCarrito = prev.filter((p) => p.nombreproducto !== nombre);
 
-    // recalcular cantidad de productos distintos
-    setCantidadProductos(nuevoCarrito.length);
+      setCantidadProductos(nuevoCarrito.length);
 
-    // recalcular suma total de precios
-    const nuevoTotal = nuevoCarrito.reduce(
-      (acc, producto) => acc + (producto.precioProducto * producto.cantidad),
-      0
-    );
-    setTotalPrecioProductoSumado(nuevoTotal);
-   
-    return nuevoCarrito;
-  });
+      const nuevoTotal = nuevoCarrito.reduce(
+        (acc, producto) => acc + producto.precioproducto * producto.cantidad,
+        0
+      );
+      setTotalPrecioProductoSumado(nuevoTotal);
+
+      return nuevoCarrito;
+    });
   };
-  
+
   const { isLoggedIn } = useContext(AuthContext);
 
   // Datos del usuario
-  const infoUser = { 
+  const infoUser = {
     id: contador,
     nombre: usuario,
     telefono: telefono,
     direccion: municipioActivo,
-    precioMensajeria: precioMensajeria
-  }
+    precioMensajeria: precioMensajeria,
+  };
 
-const gestionarCompra = async (infoUser, carrito, cantidadProductos, totalPrecioProductoSumado) => {
-  const factura = generarFactura(infoUser, carrito, cantidadProductos, totalPrecioProductoSumado);
-
-  const response = await fetch('/.netlify/functions/guardarFactura', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ factura })
-  });
-
-  // 2. Procesar la respuesta
-  const result = await response.json();
-
-  // 4. Confirmación al usuario
-  if (response.ok) {
-    alert(`Tu pedido ha sido enviado y guardado correctamente ✅\nMensaje del backend: ${result.message}`);
-    console.log(result);
-  } else {
-    alert("Hubo un error al procesar tu pedido ❌");
-    console.error("Error del backend:", result.error);
-  }
-  } 
-  
-  const insertarProductoBD = async (nombre, precio, url, stock) => {
-    const producto = {
-      nombre,
-      precio,
-      url,
-      stock
-    }
-
-    const response = await fetch('/.netlify/functions/guardarProducto', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ producto })
-    });    
-
-    // 2. Procesar la respuesta
-    const result = await response.json();
-
-    // 4. Confirmación al usuario
-    if (response.ok) {
-      alert(`Tu producto ha sido enviado y guardado correctamente ✅\nMensaje del backend: ${result.message}`);
-      console.log(result);
-    } else {
-      alert("Hubo un error al procesar tu producto ❌");
-      console.error("Error del backend:", result.error);
-    }
-  }
-
-  const [productosBD, setProductosBD] = useState([]);
-
+  // Obtener productos desde backend
   useEffect(() => {
     const fetchProductos = async () => {
-      const response = await fetch('/.netlify/functions/obtenerProducto');
+      const response = await fetch("/.netlify/functions/obtenerProducto");
       const result = await response.json();
 
       if (response.ok) {
