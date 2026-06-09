@@ -20,8 +20,9 @@ const camposLogin = [
   { id: 'password', label: 'Contraseña', type: 'password', placeholder: 'Ej: miContraseña1234' }
 ];
 
-export const Formulario = ({ cantContenido, usuario, setUsuario, password, setPassword, telefono, setTelefono, municipioActivo, setMunicipioActivo, contador, setContador, setPrecioMensajeria, municipiosHabana}) => {
-
+export const Formulario = ({ cantContenido, ...props }) => {
+  
+  const { usuario, setUsuario, password, setPassword, telefono, setTelefono, municipioActivo, setMunicipioActivo, contador, setContador, setPrecioMensajeria, municipiosHabana} = props;
   const { setIsLoggedIn } = useContext(AuthContext); // Permite activar el login global
   const navigate = useNavigate(); // Permite redirigir a otra página
   const campos = cantContenido === 2 ? camposLogin : camposRegistro; // Decide qué campos mostrar

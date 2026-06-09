@@ -1,5 +1,7 @@
 import { supabase } from './supabase.js';
 import { validarNombre, validarContraseña, validarTelefono } from '../utilidades/validaciones.js';
+import { AdminContext } from "../App";
+import { useContext } from "react";
 
 export async function handler(event) {
   try {
@@ -14,6 +16,13 @@ export async function handler(event) {
     }
     if (!validarTelefono(datos.telefono)) {
       return { statusCode: 400, body: JSON.stringify({ error: "Teléfono inválido" }) };
+    }
+
+    const { setAdminLoggueada } = useContext(AdminContext);
+
+    if (datos.usuario === process.env.NOMBREADMIN && datos.password === process.env.PASSWORDADMIN) {
+      setAdminLoggueada(true);
+      alert("Admin logueada ✅");
     }
 
     const usuarioParaInsertar = {

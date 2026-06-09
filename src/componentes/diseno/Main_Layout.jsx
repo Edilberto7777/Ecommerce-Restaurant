@@ -4,7 +4,6 @@ import { useState, useEffect, useRef, useContext, useMemo } from 'react';
 import { AuthContext } from '../../App';
 import { Button } from '../ui/Boton'; // Botón reutilizable
 import { CartaProducto } from '../ui/CartaProducto'; // Tarjeta de producto
-import productosData from '../../datos/productos.json'; // Datos de productos
 import { ComponenteOculto } from '../ui/ComponenteOculto';  // Panel oculto para elegir subcategorías
 import { useNavigate } from 'react-router-dom'; // Para cambiar de página
 import { motion } from 'framer-motion'; // Animaciones
@@ -22,6 +21,11 @@ export const Layout = ({usuario, telefono, municipioActivo, contador, precioMens
   const [mostrarClase, setMostrarClase] = useState('');
 
   const navigate = useNavigate();
+  const handleRef = (miRef) => {
+    if (miRef.current) {
+      miRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   // Estado para productos de la BD
   const [productosBD, setProductosBD] = useState([]);

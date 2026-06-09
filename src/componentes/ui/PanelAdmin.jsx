@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import '../../estilos/panelAdmin.css';
 import { supabase } from "../../servicios/supabase.js";
-
+import { AdminContext } from "../../App.jsx";
+import { useContext } from "react";
 
 const seleccionarSubcategoria = (categoria) => {
   switch (categoria) {
@@ -87,8 +88,10 @@ export const Panel = ({ categoriaActiva, categoriaSeleccionadaProductos }) => {
     }
   };
 
+  const { adminLoggueada } = useContext(AdminContext);
+
   return (
-    <section className='seccion_PanelAdmin-contenedor'>
+    adminLoggueada && (<section className='seccion_PanelAdmin-contenedor'>
       <form className='seccion_PanelAdmin' onSubmit={manejarSubmit}>
         <div>
           <h2>----PANEL ADMINISTRATIVO----</h2>
@@ -142,6 +145,6 @@ export const Panel = ({ categoriaActiva, categoriaSeleccionadaProductos }) => {
           </section>
         </div>
       </form>
-    </section>
+    </section>)
   )
 }

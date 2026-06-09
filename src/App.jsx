@@ -12,10 +12,23 @@ export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
-    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn}}>
       {children}
     </AuthContext.Provider>
+  );
+}
+
+export const AdminContext = createContext();
+
+export function AdminProvider({ children }) {
+  const [adminLoggueada, setAdminLoggueada] = useState(false);
+
+  return (
+    <AdminContext.Provider value={{ adminLoggueada, setAdminLoggueada }}>
+      {children}
+    </AdminContext.Provider>
   );
 }
 
@@ -75,7 +88,9 @@ export default function Root() {
   return (
     <Router>
       <AuthProvider>
-        <App />
+        <AdminProvider>
+          <App />
+          </AdminProvider>
       </AuthProvider>
     </Router>
   );
