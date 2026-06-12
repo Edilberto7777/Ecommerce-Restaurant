@@ -1,7 +1,21 @@
 import { gestorPrecioMensajeria } from '../utilidades/gestionMunicipio.js';
 import { validarNombre, validarContraseña, validarTelefono } from './validadores';
 
-export const datosEstadisticas = async (cantContenido, usuario, password, telefono, setTelefono, setMunicipioActivo, setIsLoggedIn, event, navigate, datos, setUsuario, setPrecioMensajeria) => {
+export const datosEstadisticas = async (
+  cantContenido,
+  usuario,
+  password,
+  telefono,
+  setTelefono,
+  setMunicipioActivo,
+  setIsLoggedIn,
+  event,
+  navigate,
+  datos,
+  setUsuario,
+  setPrecioMensajeria,
+  setAdminLoggueada,
+) => {
   // Busca en la lista de usuarios guardados
   const responseUsuarios = await fetch('/.netlify/functions/obtenerUsuario');
   const resultUsuarios = await responseUsuarios.json();
@@ -12,6 +26,12 @@ export const datosEstadisticas = async (cantContenido, usuario, password, telefo
     const usuarioEncontrado = usuariosGuardados.find((u) => u.usuario === usuario && u.contrasena === password && u.telefono && u.direccion);
 
     if (usuarioEncontrado) {
+      // eslint-disable-next-line no-undef
+      if (usuario === process.env.NOMBREADMIN && password === process.env.PASSWORDADMIN) {
+        setAdminLoggueada(true);
+        alert('Admin logueada ✅');
+      }
+
       setUsuario(usuarioEncontrado.usuario);
       setTelefono(usuarioEncontrado.telefono);
       setMunicipioActivo(usuarioEncontrado.direccion);

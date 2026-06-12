@@ -1,9 +1,6 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 import { supabase } from './supabase.js';
 import { validarNombre, validarContraseña, validarTelefono } from '../utilidades/validaciones.js';
-import { AdminContext } from '../../src/App.jsx';
-import { useContext } from 'react';
 
 export async function handler(event) {
   try {
@@ -20,13 +17,6 @@ export async function handler(event) {
       return { statusCode: 400, body: JSON.stringify({ error: 'Teléfono inválido' }) };
     }
 
-    const { setAdminLoggueada } = useContext(AdminContext);
-
-    if (datos.usuario === process.env.NOMBREADMIN && datos.password === process.env.PASSWORDADMIN) {
-      setAdminLoggueada(true);
-      alert('Admin logueada ✅');
-    }
-
     const usuarioParaInsertar = {
       usuario: datos.usuario,
       contrasena: datos.password,
@@ -34,7 +24,6 @@ export async function handler(event) {
       direccion: datos.direccion,
     };
 
-    // eslint-disable-next-line no-unused-vars
     const { data, error } = await supabase.from('usuarios').insert([usuarioParaInsertar]);
 
     if (error) {
@@ -43,6 +32,6 @@ export async function handler(event) {
 
     return { statusCode: 200, body: JSON.stringify({ message: 'Usuario registrado correctamente' }) };
   } catch (err) {
-    return { statusCode: 500, body: JSON.stringify({ error: 'Error interno en registrarUsuario', err }) };
+    return { statusCode: 500, body: JSON.stringify({ error: 'Error interno en registrarUsuario' }) };
   }
 }
