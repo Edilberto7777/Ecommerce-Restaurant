@@ -1,12 +1,12 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from 'react';
 
-export const EfectoEntrada = ({ children, trigger = 0.5}) => {
+export const EfectoEntrada = ({ children, trigger = 0.5 }) => {
   const ref = useRef(null);
-  const [style, setStyle] = useState({ opacity: 0, transform: "scale(0.8)" });
+  const [style, setStyle] = useState({ opacity: 0, transform: 'scale(0.8)' });
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!ref.current) return; 
+      if (!ref.current) return;
 
       const rect = ref.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
@@ -26,12 +26,12 @@ export const EfectoEntrada = ({ children, trigger = 0.5}) => {
       setStyle({
         opacity: newOpacity,
         transform: `scale(${newScale})`,
-        transition: "opacity 0.4s ease, transform 0.4s ease"
+        transition: 'opacity 0.4s ease, transform 0.4s ease',
       });
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [trigger]);
 
   return (
