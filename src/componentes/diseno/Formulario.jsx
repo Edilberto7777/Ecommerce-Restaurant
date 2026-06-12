@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 // Importamos estilos y librerías necesarias
 import '../../estilos/formulario.css';
+import { motion } from 'framer-motion';
 import { useContext } from 'react';
 import { AuthContext } from '../../App.jsx';
 import { useNavigate } from 'react-router-dom';
